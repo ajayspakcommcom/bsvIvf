@@ -1,0 +1,89 @@
+-- USP_REPORT_HospitalCount_brandWise null, 1, 2023   
+------------------------------------   
+-- crated by : guru singh   
+-- crated date: 15-mar-2023   
+------------------------------------   
+CREATE PROCEDURE USP_REPORT_HOSPITALCOUNT_BRANDWISE   
+(   
+    @empId int = null,   
+    @month int = NULL,   
+    @Year int = null   
+)   
+AS     
+    set nocount on;   
+        BEGIN   
+        if @month is NULL   
+            BEGIN   
+            set @month =  month(DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE())-1, 0))   
+            END   
+        if @Year is NULL   
+            BEGIN   
+            set @Year =  year(DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE())-1, 0))   
+            END   
+   
+CREATE TABLE #empHierarchy    
+(    
+    levels smallInt,    
+    EmpID INT,    
+    ParentId int    
+)    
+                
+;WITH    
+    RecursiveCte    
+    AS    
+    (    
+        SELECT 1 as Level, H1.EmpID, H1.ParentId    
+            FROM tblHierarchy H1    
+            WHERE (@empid is null or ParentID = @empid)    
+        UNION ALL    
+        SELECT RCTE.level + 1 as Level, H2.EmpID, H2.ParentId    
+            FROM tblHierarchy H2    
+                INNER JOIN RecursiveCte RCTE ON H2.ParentId = RCTE.EmpID    
+    )    
+            insert into #empHierarchy    
+                (levels, EmpID, ParentId )    
+            SELECT Level, EmpID, ParentId    
+            FROM RecursiveCte r    
+            ;    
+             insert into #empHierarchy    
+                (levels, EmpID, ParentId )    
+            VALUEs (0, @empId, -1)   
+   
+  
+ -- select count(*) from #empHierarchy  
+  
+        declare @addedFor DATE   
+        set  @addedFor = (DATEFROMPARTS (@Year, @Month, 1))    
+        
+  
+          
+            select *  
+            from  
+            (  
+            select ha.brandId, sg.brandName from TblHospitalactuals ha  
+            INNER JOIN tblSkuGroup sg on sg.brandID = ha.brandId  
+            where ha.isApproved = 0  and ha.isDisabled = 0  
+            and ActualEnteredFor = @addedFor   
+            and empId in (select empId from #empHierarchy)   
+            ) d  
+            pivot  
+            (  
+            count(d.brandId)  
+            for brandName in (FOLIGRAF,HUMOG,ASPORELIX,[R-HUCOG],FOLICULIN,AGOTRIG,MIDYDROGEN,SPRIMEO)  
+            ) piv;  
+  
+  
+   
+ 
+        SELECT COUNT(*) as totalHospital  
+        FROM tblCustomers c  
+            INNER JOIN  tblEmpHospitals eh on eh.hospitalId = c.customerId 
+            INNER JOIN tblSpecialtyType st on st.specialtyId = c.specialtyId and st.specialtyId in (2)  
+        WHERE  
+            c.isdisabled = 0 and eh.empID in (select EmpID from #empHierarchy ) 
+   
+ 
+          drop table #empHierarchy    
+        END   
+    set nocount off;   
+   

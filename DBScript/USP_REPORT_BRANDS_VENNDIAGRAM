@@ -1,0 +1,73 @@
+DROP PROCEDURE USP_REPORT_BRANDS_VENNDIAGRAM   
+GO
+-- USP_REPORT_BRANDS_VENNDIAGRAM null, NULL, NULL
+------------------------------------   
+-- crated by : guru singh   
+-- crated date: 15-mar-2023   
+------------------------------------   
+CREATE PROCEDURE USP_REPORT_BRANDS_VENNDIAGRAM   
+(   
+    @empId int = null,  
+    @fromDate date = null,
+    @toDate date  = null
+)   
+AS     
+set nocount on;   
+    BEGIN
+        IF @fromDate IS NULL    
+        BEGIN
+            SET @fromDate = '1-JAN-2023'
+        END
+        IF @toDate IS NULL    
+        BEGIN
+            SET @toDate = '1-JAN-2029'
+        END
+
+
+            CREATE TABLE #empHierarchy (levels smallInt, EmpID INT, ParentId int )
+            ;WITH    
+                RecursiveCte    
+                AS    
+                (    
+                    SELECT 1 as Level, H1.EmpID, H1.ParentId    
+                        FROM tblHierarchy H1    
+                        WHERE (@empid is null or ParentID = @empid)    
+                    UNION ALL    
+                    SELECT RCTE.level + 1 as Level, H2.EmpID, H2.ParentId    
+                        FROM tblHierarchy H2    
+                            INNER JOIN RecursiveCte RCTE ON H2.ParentId = RCTE.EmpID    
+                )    
+                        insert into #empHierarchy    
+                            (levels, EmpID, ParentId )    
+                        SELECT Level, EmpID, ParentId    
+                        FROM RecursiveCte r    
+                        ;    
+                        insert into #empHierarchy    
+                            (levels, EmpID, ParentId )    
+                        VALUEs (0, @empId, -1)   
+
+            -- select count(*) from #empHierarchy  
+            select sg.brandName, count(*)
+            from TblHospitalactuals ha  
+            INNER JOIN tblSkuGroup sg on sg.brandID = ha.brandId  
+            where ha.isApproved = 0  and ha.isDisabled = 0  
+            and empId in (select empId from #empHierarchy)   
+            and (ActualEnteredFor BETWEEN @fromDate AND @toDate)
+            GROUP BY sg.brandName
+
+-- USP_REPORT_BRANDS_VENNDIAGRAM null, NULL, NULL
+
+            select sg.brandName, hospitalId
+            from TblHospitalactuals ha  
+            INNER JOIN tblSkuGroup sg on sg.brandID = ha.brandId  
+            where ha.isApproved = 0  and ha.isDisabled = 0  
+            and empId in (select empId from #empHierarchy)   
+            and (ActualEnteredFor BETWEEN @fromDate AND @toDate)
+            -- OR (ActualEnteredFor IS NULL AND @fromDate IS NULL AND @toDate IS NULL)
+            -- OR (ActualEnteredFor >= @fromDate AND @toDate IS NULL)
+            -- OR (ActualEnteredFor <= @toDate AND @fromDate IS NULL)
+        
+            drop table #empHierarchy    
+    END   
+set nocount off;   
+   
