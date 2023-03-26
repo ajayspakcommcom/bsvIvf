@@ -250,3 +250,63 @@ function filterData(e) {
 
 }
 
+
+
+function getVennReports(e) {
+    
+    isLoaderVisible(true);
+
+    let param = {
+        empId: _empId,
+        month: $('#monthCombo').val(),
+        Year: $('#yearCombo').val()
+    }
+
+
+    axios
+        .post('/get-brands-under-centers', param).then((response) => {
+                //debugger;
+                console.log(response.data[1]);
+                let brands = response.data[0],
+                    hospitalList = response.data[1];
+               
+               let sets = []; 
+                brands.forEach(brand => {
+                    sets.push({sets: [`${brand.brandName} ${brand.CNT}`  ], size: brand.CNT})
+                });
+                console.log(hospitalList);
+
+                // var sets = [
+                //     { sets: ['FOLICULIN'], hospitalId: [966, 967] },
+                //     { sets: ['HUMOG'], hospitalId: [966, 967] },
+                //     { sets: ['FOLIGRAF'], hospitalId: [973] }
+                //   ];
+
+                // Set up options
+                var options = {
+                    width: 500,
+                    height: 500
+                };
+                // Draw the diagram
+                var chart = venn.VennDiagram()
+                    .width(options.width)
+                    .height(options.height);
+
+                d3.select("#venn").datum(sets).call(chart);
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
+
+   
+
+
+
+
+
+
+    $('.selectedMonth').text($("#monthCombo option:selected").text());
+
+}
+

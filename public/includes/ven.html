@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/public/js/venn.js"></script>
+  </head>
+  <body>
+    <div id="venn-diagram"></div>
+    <script>
+      // Data
+      const data = [
+        { brandName: "FOLICULIN", hospitalId: "966" },
+        { brandName: "HUMOG", hospitalId: "966" },
+        { brandName: "FOLICULIN", hospitalId: "966" },
+        { brandName: "HUMOG", hospitalId: "966" },
+        { brandName: "FOLICULIN", hospitalId: "967" },
+        { brandName: "HUMOG", hospitalId: "967" },
+        { brandName: "HUMOG", hospitalId: "967" },
+        { brandName: "FOLIGRAF", hospitalId: "973" },
+        { brandName: "FOLIGRAF", hospitalId: "973" },
+      ];
+
+      // Prepare data for venn diagram
+      const vennData = [
+        { sets: ["FOLICULIN"], hospitalIds: new Set(["966", "967"]) },
+        { sets: ["HUMOG"], hospitalIds: new Set(["966", "967"]) },
+        { sets: ["FOLIGRAF"], hospitalIds: new Set(["973"]) },
+        { sets: ["FOLICULIN", "HUMOG"], hospitalIds: new Set(["966"]) },
+        { sets: ["HUMOG", "FOLIGRAF"], hospitalIds: new Set([]) },
+        { sets: ["FOLICULIN", "HUMOG", "FOLIGRAF"], hospitalIds: new Set([]) },
+      ];
+
+      // Create venn diagram
+      const chart = venn
+        .Diagram()
+        .width(500)
+        .height(500);
+
+      d3.select("#venn-diagram")
+        .datum(vennData)
+        .call(chart);
+    </script>
+  </body>
+</html>

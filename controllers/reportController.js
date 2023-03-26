@@ -37,6 +37,10 @@ exports.dataReport = (req, res, next) => {
     res.sendFile(`${path.dirname(process.mainModule.filename)}/public/views/report/report.html`);
 };
 
+
+exports.dataReportVenn = (req, res, next) => {
+    res.sendFile(`${path.dirname(process.mainModule.filename)}/public/views/report/businessUnitVenn.html`);
+};
 // exports.dashboardReport = (req, res, next) => {
 //     res.sendFile(`${path.dirname(process.mainModule.filename)}/public/views/report/dashboard.html`);
 // };
@@ -446,3 +450,45 @@ getAllBusinessReport = (objParam) => {
             });
     });
 };
+
+
+
+
+exports.getBrandsUnderCenters = (req, res, next) => {
+    // console.log('i am here');
+    getBrandsUnderCentersData(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getBrandsUnderCentersData = (objParam) => {
+    //console.log('I am Here', objParam);
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("empId", sql.Int, null)
+                    .input("fromDate", sql.Date, null)
+                    .input("toDate", sql.Date, null)
+                    .execute("USP_REPORT_BRANDS_VENNDIAGRAM")
+                    .then(function (resp) {
+                        // console.log('***********')
+                       // console.log((resp.recordsets))
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        // console.log(err);
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
+

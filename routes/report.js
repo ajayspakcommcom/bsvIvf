@@ -10,6 +10,7 @@ router.get('/rate-with-product-report', reportController.rateWithProductReport);
 router.get('/rc-agreement-report', reportController.rcAgreementReport);
 router.get('/dashboard-chart-report', reportController.dashboardChartReport);
 router.get('/report', reportController.dataReport);
+router.get('/reportVenn', reportController.dataReportVenn);
 router.post('/report/potential', reportController.getPotentialData);
 router.post('/report/RCAgreement', reportController.getRateContractData);
 router.post('/report/businessReport', reportController.getBusinessReport);
@@ -31,6 +32,10 @@ router.post('/market-insight-data', reportController.getMarketInsightData);
 
 //latest
 router.post('/potential-report1', reportController.getPotentialReport1);
+router.post('/get-brands-under-centers', reportController.getBrandsUnderCenters);
+
+
+
 
 
 //Ajay
