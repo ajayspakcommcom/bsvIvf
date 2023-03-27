@@ -476,7 +476,74 @@ getBrandsUnderCentersData = (objParam) => {
                     .execute("USP_REPORT_BRANDS_VENNDIAGRAM")
                     .then(function (resp) {
                         // console.log('***********')
-                       // console.log((resp.recordsets))
+                        // console.log((resp.recordsets))
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        // console.log(err);
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
+
+exports.getFoligrafBrandAnalysis = (req, res, next) => {
+    getFoligrafBrandAnalysis(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getFoligrafBrandAnalysis = (objParam) => {
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("empId", sql.Int, null)
+                    .input("fromDate", sql.Date, null)
+                    .input("toDate", sql.Date, null)
+                    .execute("USP_REPORT_BRANDS_FOLIGRAF_ANALYSIS")
+                    .then(function (resp) {
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        // console.log(err);
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
+exports.getBrandAnalysis = (req, res, next) => {
+    getBrandAnalysis(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getBrandAnalysis = (objParam) => {
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("empId", sql.Int, null)
+                    .input("fromDate", sql.Date, null)
+                    .input("toDate", sql.Date, null)
+                    .execute("USP_REPORT_BRANDS_ANALYSIS")
+                    .then(function (resp) {
                         resolve(resp.recordsets);
                         dbConn.close();
                     })
