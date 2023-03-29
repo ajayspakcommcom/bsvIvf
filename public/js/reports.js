@@ -246,14 +246,67 @@ function filterData(e) {
         });
 
 
+
+    axios
+        .post('/foligraf-brand-analysis-report', param).then((response) => {
+
+            let brandList = response.data[0], penCompetitorList = response.data[1], vialCompetitorList = response.data[2], showHtml = [], competitorPenHtml = [], competitorVialHtml = [];
+
+            console.log('brandList', brandList);
+            console.log('penCompetitorList', penCompetitorList);
+            console.log('vialCompetitorList', vialCompetitorList);
+
+            for (let item of penCompetitorList) {
+                competitorPenHtml.push(`
+                    <div>
+                        <div>Name : <b> ${item.name}</b> Total Business Value : <b>${item.TotalBusinessValue}</b></div>
+                    </div>
+                `);
+            }
+
+            for (let item of vialCompetitorList) {
+                competitorVialHtml.push(`
+                    <div>
+                        <div>Name : <b> ${item.name}</b> Total Business Value : <b>${item.TotalBusinessValue}</b></div>
+                    </div>
+                `);
+            }
+
+            console.log(competitorPenHtml);
+            console.log(competitorVialHtml);
+
+            for (let item of brandList) {
+                showHtml.push(`<tr>
+                    <td>${item.name}</td>
+                    <td>${item.sumTotalofQty}</td>
+                    <td>${item.name.toLowerCase() === 'foligraf pen' ? competitorPenHtml.join('') : competitorVialHtml.join('')}</td>    
+                </tr>`);
+            }
+
+            $('#brand-competitors-records').html(showHtml.join(''));
+            $('.folifraf-analysis-report').addClass('show').removeClass('none');
+            isLoaderVisible(false);
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    axios
+        .post('/brand-analysis-report', param).then((response) => {
+            //console.log('brand-analysis-report', response.data);
+            //isLoaderVisible(false);
+        }).catch((err) => {
+            console.log(err);
+        });
+
+
+
     $('.selectedMonth').text($("#monthCombo option:selected").text());
 
 }
 
 
-
 function getVennReports(e) {
-    
+
     isLoaderVisible(true);
 
     let param = {
@@ -262,51 +315,41 @@ function getVennReports(e) {
         Year: $('#yearCombo').val()
     }
 
-
     axios
         .post('/get-brands-under-centers', param).then((response) => {
-                //debugger;
-                console.log(response.data[1]);
-                let brands = response.data[0],
-                    hospitalList = response.data[1];
-               
-               let sets = []; 
-                brands.forEach(brand => {
-                    sets.push({sets: [`${brand.brandName} ${brand.CNT}`  ], size: brand.CNT})
-                });
-                console.log(hospitalList);
+            console.log(response.data[1]);
+            let brands = response.data[0],
+                hospitalList = response.data[1];
 
-                // var sets = [
-                //     { sets: ['FOLICULIN'], hospitalId: [966, 967] },
-                //     { sets: ['HUMOG'], hospitalId: [966, 967] },
-                //     { sets: ['FOLIGRAF'], hospitalId: [973] }
-                //   ];
+            let sets = [];
+            brands.forEach(brand => {
+                sets.push({ sets: [`${brand.brandName} ${brand.CNT}`], size: brand.CNT })
+            });
+            console.log(hospitalList);
+            // var sets = [
+            //     { sets: ['FOLICULIN'], hospitalId: [966, 967] },
+            //     { sets: ['HUMOG'], hospitalId: [966, 967] },
+            //     { sets: ['FOLIGRAF'], hospitalId: [973] }
+            //   ];
 
-                // Set up options
-                var options = {
-                    width: 500,
-                    height: 500
-                };
-                // Draw the diagram
-                var chart = venn.VennDiagram()
-                    .width(options.width)
-                    .height(options.height);
+            // Set up options
+            var options = {
+                width: 500,
+                height: 500
+            };
+            // Draw the diagram
+            var chart = venn.VennDiagram()
+                .width(options.width)
+                .height(options.height);
 
-                d3.select("#venn").datum(sets).call(chart);
+            d3.select("#venn").datum(sets).call(chart);
 
         }).catch((err) => {
             console.log(err);
         });
 
-
-   
-
-
-
-
-
-
     $('.selectedMonth').text($("#monthCombo option:selected").text());
-
 }
+
+
 
