@@ -174,9 +174,9 @@ function filterData(e) {
     axios
         .post('/market-insight-data', param).then((response) => {
 
-            let triggerProtocolData = response.data[0][0], lpsProtocolData = response.data[1][0], gonadotropinslData = response.data[2][0], obstetricsData = response.data[3][0];
+            let triggerProtocolData = response.data[0][0], lpsProtocolData = response.data[1][0], gonadotropinslData = response.data[2][0], obstetricsData = response.data[3][0], tableData = response.data[4];
 
-            let arrTriggerData = [], arrLpsData = [], arrGonadotropinsData = [], arrObstetricsData = [];
+            let arrTriggerData = [], arrLpsData = [], arrGonadotropinsData = [], arrObstetricsData = [], tableHtml = [];
 
             for (let item in triggerProtocolData) {
                 arrTriggerData.push([item, triggerProtocolData[item]]);
@@ -207,7 +207,40 @@ function filterData(e) {
                 renderBarchar('miBarChart', 'Obstetrics Bar Char', 'Count', 'Obstetrics', arrObstetricsData);
             }
 
+            console.log(tableData);
 
+            for (let item of tableData) {
+                console.log(item);
+                tableHtml.push(`<tr>
+                    <td>${item["Dual Trigger (R-HCG + Leuprolide) CONSUMPTION"]}</td>
+                    <td>${item["Dual Trigger (R-HCG + Triptorelin) CONSUMPTION"]}</td>
+                    <td>${item["Dydrogesterone CONSUMPTION"]}</td>
+                    <td>${item["HMG CONSUMPTION"]}</td>
+                    <td>${item["IVFCycle"]}</td>
+                    <td>${item["Only Agonist-Leuprolide CONSUMPTION"]}</td>
+                    <td>${item["Only Agonist-Triptorelin CONSUMPTION"]}</td>
+                    <td>${item["Progesretone+Dydrogesterone CONSUMPTION"]}</td>
+                    <td>${item["Progesterone CONSUMPTION"]}</td>
+                    <td>${item["R-HCG CONSUMPTION"]}</td>
+                    <td>${item["RFS CONSUMPTION"]}</td>
+                    <td>${item["U-HCG CONSUMPTION"]}</td>
+                    <td>${item["answerFiveCombination"]}</td>
+                    <td>${item["answerFiveDydrogesterone"]}</td>
+                    <td>${item["answerFourAgonistL"]}</td>
+                    <td>${item["answerFourAgonistT"]}</td>
+                    <td>${item["answerFourRHCG"]}</td>
+                    <td>${item["answerFourRHCGLeuprolide"]}</td>
+                    <td>${item["answerFourRHCGTriptorelin"]}</td>
+                    <td>${item["answerFourUHCG"]}</td>
+                    <td>${item["answerProgesterone"]}</td>
+                    <td>${item["answerThreeHMG"]}</td>
+                    <td>${item["answerThreeRFSH"]}</td>
+                </tr>`);
+            }
+
+            console.log(tableHtml);
+
+            $('#miTableReport').html(tableHtml.join(''));
             $('.trigger-protocol-report').addClass('show').removeClass('none');
             isLoaderVisible(false);
 
