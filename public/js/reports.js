@@ -277,7 +277,6 @@ function filterData(e) {
 
             console.log(arrTriggerData);
 
-
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
 
@@ -378,8 +377,6 @@ function filterData(e) {
         }).catch((err) => {
             console.log(err);
         });
-
-
 
     $('.selectedMonth').text($("#monthCombo option:selected").text());
 
