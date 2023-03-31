@@ -108,43 +108,45 @@
                             <div class="trigger-protocol-report none">
                                 <h3>Market Insight</h3>
                                 <div class="mi-pie-chart-wrapper">
-                                    <div id="miPieChartTriggerProtocol" style="width: 480px; height: 300px;"></div>
-                                    <div id="miLpsProtocol" style="width: 480px; height: 300px;"></div>
                                     <div id="miGonadotropinsProtocol" style="width: 480px; height: 300px;"></div>
+                                    <div id="miLpsProtocol" style="width: 480px; height: 300px;"></div>
+                                    <div id="miPieChartTriggerProtocol" style="width: 480px; height: 300px;"></div>
                                 </div>
                                 <div id="miBarChart" style="width: 480px; height: 300px;"></div>
-                                <hr />
-
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <th>IVFCycle</th>
-                                            <th>R-FSH</th>
-                                            <th>R-FSH Consumption</td>
-                                            <th>HMG</th>
-                                            <th>HMG Consumption</th>
-                                            <th>Progesterone</th>
-                                            <th>Progesterone Consumption</th>
-                                            <th>Dydrogesterone</th>
-                                            <th>Dydrogesterone Consumption</th>
-                                            <th>Combination (Progesretone+Dydrogesterone)</th>
-                                            <th>Combination (Progesretone+Dydrogesterone) Consumption</th>
-                                            <th>R-HCG</th>
-                                            <th>R-HCG Consumption</th>
-                                            <th>U-HCG</th>
-                                            <th>U-HCG Consumption</th>
-                                            <th>Only Agonist-Leuprolide</th>
-                                            <th>Only Agonist-Leuprolide Consumption</th>
-                                            <th>Only Agonist-Triptorelin</th>
-                                            <th>Only Agonist-Triptorelin Consumption</th>
-                                            <th>Dual Trigger (R-HCG + Triptorelin)</th>
-                                            <th>Dual Trigger (R-HCG + Triptorelin) Consumption</th>
-                                            <th>Dual Trigger (R-HCG + Leuprolide)</th>
-                                            <th>Dual Trigger (R-HCG + Leuprolide) Consumption</th>
-                                        </tr>
-                                        <tbody id="miTableReport"></tbody>
-                                    </table>
+                                <div style="display:none;">
+                                    <hr />
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>IVFCycle</th>
+                                                <th>R-FSH</th>
+                                                <th>R-FSH Consumption</td>
+                                                <th>HMG</th>
+                                                <th>HMG Consumption</th>
+                                                <th>Progesterone</th>
+                                                <th>Progesterone Consumption</th>
+                                                <th>Dydrogesterone</th>
+                                                <th>Dydrogesterone Consumption</th>
+                                                <th>Combination (Progesretone+Dydrogesterone)</th>
+                                                <th>Combination (Progesretone+Dydrogesterone) Consumption</th>
+                                                <th>R-HCG</th>
+                                                <th>R-HCG Consumption</th>
+                                                <th>U-HCG</th>
+                                                <th>U-HCG Consumption</th>
+                                                <th>Only Agonist-Leuprolide</th>
+                                                <th>Only Agonist-Leuprolide Consumption</th>
+                                                <th>Only Agonist-Triptorelin</th>
+                                                <th>Only Agonist-Triptorelin Consumption</th>
+                                                <th>Dual Trigger (R-HCG + Triptorelin)</th>
+                                                <th>Dual Trigger (R-HCG + Triptorelin) Consumption</th>
+                                                <th>Dual Trigger (R-HCG + Leuprolide)</th>
+                                                <th>Dual Trigger (R-HCG + Leuprolide) Consumption</th>
+                                            </tr>
+                                            <tbody id="miTableReport"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
+
 
                             </div>
                         </div>
@@ -162,6 +164,27 @@
                                 </table>
                             </div>
                         </div>
+
+
+                        <div class="table-responsive">
+                            <div class="brand-consumption-report none">
+                                <h3>Brand Consumption</h3>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>IVF Fresh Stimulated Cycles</th>
+                                        <th>Foligraf (10)</th>
+                                        <th>Humog (10)</th>
+                                        <th>Asporelix (5)</th>
+                                        <th>R-Hucog (1)</th>
+                                        <th>Agotric (1)</th>
+                                        <th>Midydrogen (30)</th>
+                                    </tr>
+                                    <tbody id="brand-consumption-records"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
 
                     </div>
 

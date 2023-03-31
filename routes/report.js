@@ -38,6 +38,8 @@ router.post('/get-brands-under-centers', reportController.getBrandsUnderCenters)
 router.post('/foligraf-brand-analysis-report', reportController.getFoligrafBrandAnalysis);
 router.post('/brand-analysis-report', reportController.getBrandAnalysis);
 
+router.post('/brand-consumption-report', reportController.getBrandConsumptionReport);
+
 
 
 

@@ -275,7 +275,7 @@ function filterData(e) {
                 ["RHCGLeuprolide", ((totalLeuprolideConsumption / totalRow) * 100)]
             ];
 
-            console.log(arrTriggerData);
+            // console.log(arrTriggerData);
 
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
@@ -377,6 +377,59 @@ function filterData(e) {
         }).catch((err) => {
             console.log(err);
         });
+
+
+    axios
+        .post('/brand-consumption-report', param).then((response) => {
+
+            let foligrafTotal = 0, humogTotal = 0, asporelixTotal = 0, rhcogTotal = 0, agotricTotal = 0, midydrogenTotal = 0, showHtml = [];
+
+
+            console.log(response.data[0]);
+
+            for (let item of response.data[0]) {
+
+                foligrafTotal = foligrafTotal + parseFloat(item['Foligraf']);
+                humogTotal = humogTotal + parseFloat(item['Humog']);
+                asporelixTotal = asporelixTotal + parseFloat(item['Asporelix']);
+                rhcogTotal = rhcogTotal + parseFloat(item['R-Hucog']);
+                agotricTotal = agotricTotal + parseFloat(item['Agotrig']);
+                midydrogenTotal = midydrogenTotal + parseFloat(item['Midydrogen']);
+
+                showHtml.push(`
+                <tr>
+                    <td>${item['IVF Fresh stimulated Cycles']}</td>
+                    <td>${item['Foligraf']}</td>
+                    <td>${item['Humog']}</td>
+                    <td>${item['Asporelix']}</td>
+                    <td>${item['R-Hucog']}</td>
+                    <td>${item['Agotrig']}</td>          
+                    <td>${item['Midydrogen']}</td>          
+                </tr>`
+                );
+            }
+
+            showHtml.push(`
+                <tr>
+                    <td><b>Total</b></td>
+                    <td><b>${foligrafTotal}</b></td>
+                    <td><b>${humogTotal}</b></td>
+                    <td><b>${asporelixTotal}</b></td>
+                    <td><b>${rhcogTotal}</b></td>
+                    <td><b>${agotricTotal}</b></td>          
+                    <td><b>${midydrogenTotal}</b></td>          
+                </tr>
+                `);
+
+
+            $('#brand-consumption-records').html(showHtml.join(''));
+            $('.brand-consumption-report').addClass('show').removeClass('none');
+            isLoaderVisible(false);
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
 
     $('.selectedMonth').text($("#monthCombo option:selected").text());
 

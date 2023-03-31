@@ -9918,7 +9918,8 @@ svg.rejected {
 .top-15-report,
 .trigger-protocol-report,
 .donor-self-report,
-.folifraf-analysis-report {
+.folifraf-analysis-report,
+.brand-consumption-report {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
@@ -9933,7 +9934,8 @@ svg.rejected {
 .top-15-report h3,
 .trigger-protocol-report h3,
 .donor-self-report h3,
-.folifraf-analysis-report h3 {
+.folifraf-analysis-report h3,
+.brand-consumption-report h3 {
   margin: 0 0 15px 0;
   font-size: 18px;
 }
@@ -9944,7 +9946,8 @@ svg.rejected {
 .top-15-report.none,
 .trigger-protocol-report.none,
 .donor-self-report.none,
-.folifraf-analysis-report.none {
+.folifraf-analysis-report.none,
+.brand-consumption-report.none {
   display: none;
 }
 
@@ -9954,7 +9957,8 @@ svg.rejected {
 .top-15-report.show,
 .trigger-protocol-report.show,
 .donor-self-report.show,
-.folifraf-analysis-report.show {
+.folifraf-analysis-report.show,
+.brand-consumption-report.show {
   display: block;
   margin-bottom: 20px;
 }

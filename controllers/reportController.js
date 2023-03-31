@@ -559,3 +559,37 @@ getBrandAnalysis = (objParam) => {
 };
 
 
+exports.getBrandConsumptionReport = (req, res, next) => {
+    getBrandConsumptionReport(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getBrandConsumptionReport = (objParam) => {
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("empId", sql.Int, parseInt(objParam.empId))
+                    .input("month", sql.Int, parseInt(objParam.month))
+                    .input("Year", sql.Int, parseInt(objParam.Year))
+                    .execute("USP_REPORT_BRANDS_CONSUMPTION")
+                    .then(function (resp) {
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        // console.log(err);
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
+
