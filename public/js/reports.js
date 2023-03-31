@@ -218,7 +218,7 @@ function filterData(e) {
 
             for (let item of tableData) {
 
-                totalRow = totalRow + 1;
+                totalRow = totalRow + parseFloat(item["IVFCycle"]);
                 totalRfshConsumption = totalRfshConsumption + parseFloat(item["RFS CONSUMPTION"]);
                 totalHmgConsumption = totalHmgConsumption + parseFloat(item["HMG CONSUMPTION"]);
 
@@ -261,6 +261,28 @@ function filterData(e) {
                     <td>${item["Dual Trigger (R-HCG + Leuprolide) CONSUMPTION"]}</td>
                 </tr>`);
             }
+
+            console.log(totalRow);
+            console.log(totalRfshConsumption);
+            console.log(totalHmgConsumption);
+
+            console.log('==========================');
+
+            console.log(totalRow);
+            console.log(totalProgesteroneConsumption);
+            console.log(totalDydrogesteroneConsumption);
+            console.log(totalCombinationConsumption);
+
+            console.log('==========================');
+
+            console.log(totalRhcgConsumption);
+            console.log(totalUhcgConsumption);
+            console.log(totalAgonistLeuprolideConsumption);
+            console.log(totalAgonistTriptorelinConsumption);
+            console.log(totalTriptorelinConsumption);
+            console.log(totalLeuprolideConsumption);
+
+
 
             arrGonadotropinsData = [['R-FSH', ((totalRfshConsumption / totalRow) * 100)], ['HMG', ((totalHmgConsumption / totalRow) * 100)]];
 
@@ -382,13 +404,14 @@ function filterData(e) {
     axios
         .post('/brand-consumption-report', param).then((response) => {
 
-            let foligrafTotal = 0, humogTotal = 0, asporelixTotal = 0, rhcogTotal = 0, agotricTotal = 0, midydrogenTotal = 0, showHtml = [];
+            let ivfTotal = 0, foligrafTotal = 0, humogTotal = 0, asporelixTotal = 0, rhcogTotal = 0, agotricTotal = 0, midydrogenTotal = 0, showHtml = [];
 
 
             console.log(response.data[0]);
 
             for (let item of response.data[0]) {
 
+                ivfTotal = ivfTotal + parseFloat(item['IVF Fresh stimulated Cycles']);
                 foligrafTotal = foligrafTotal + parseFloat(item['Foligraf']);
                 humogTotal = humogTotal + parseFloat(item['Humog']);
                 asporelixTotal = asporelixTotal + parseFloat(item['Asporelix']);
@@ -396,22 +419,22 @@ function filterData(e) {
                 agotricTotal = agotricTotal + parseFloat(item['Agotrig']);
                 midydrogenTotal = midydrogenTotal + parseFloat(item['Midydrogen']);
 
-                showHtml.push(`
-                <tr>
-                    <td>${item['IVF Fresh stimulated Cycles']}</td>
-                    <td>${item['Foligraf']}</td>
-                    <td>${item['Humog']}</td>
-                    <td>${item['Asporelix']}</td>
-                    <td>${item['R-Hucog']}</td>
-                    <td>${item['Agotrig']}</td>          
-                    <td>${item['Midydrogen']}</td>          
-                </tr>`
-                );
+                // showHtml.push(`
+                // <tr>
+                //     <td>${item['IVF Fresh stimulated Cycles']}</td>
+                //     <td>${item['Foligraf']}</td>
+                //     <td>${item['Humog']}</td>
+                //     <td>${item['Asporelix']}</td>
+                //     <td>${item['R-Hucog']}</td>
+                //     <td>${item['Agotrig']}</td>          
+                //     <td>${item['Midydrogen']}</td>          
+                // </tr>`
+                // );
             }
 
             showHtml.push(`
                 <tr>
-                    <td><b>Total</b></td>
+                    <td><b>${ivfTotal}</b></td>
                     <td><b>${foligrafTotal}</b></td>
                     <td><b>${humogTotal}</b></td>
                     <td><b>${asporelixTotal}</b></td>
