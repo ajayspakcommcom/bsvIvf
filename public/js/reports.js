@@ -160,7 +160,7 @@ function filterData(e) {
                     <td>${item.DoctorName}</td>
                     <td>${item.City}</td>
                     <td>${item.StateName}</td>
-                    <td>${item.QtyOrdered}</td>          
+                    <!-- <td>${item.QtyOrdered}</td> -->          
                 </tr>`);
             }
             $('#top-15-b-records').html(showHtml.join(''));
