@@ -71,6 +71,7 @@
 //     _empId = event.target.value;
 // }
 
+
 function filterData(e) {
     e.preventDefault();
     isLoaderVisible(true);
@@ -174,21 +175,24 @@ function filterData(e) {
     axios
         .post('/market-insight-data', param).then((response) => {
 
-            let triggerProtocolData = response.data[0][0], lpsProtocolData = response.data[1][0], gonadotropinslData = response.data[2][0], obstetricsData = response.data[3][0];
+            let triggerProtocolData = response.data[0][0], lpsProtocolData = response.data[1][0], gonadotropinslData = response.data[2][0], obstetricsData = response.data[3][0], tableData = response.data[4];
 
-            let arrTriggerData = [], arrLpsData = [], arrGonadotropinsData = [], arrObstetricsData = [];
+            let arrTriggerData = [], arrLpsData = [], arrGonadotropinsData = [], arrObstetricsData = [], tableHtml = [], totalRow = 0, totalRfshConsumption = 0, totalHmgConsumption = 0, totalProgesteroneConsumption = 0, totalDydrogesteroneConsumption = 0, totalCombinationConsumption = 0,
+                totalRhcgConsumption = 0, totalUhcgConsumption = 0, totalAgonistLeuprolideConsumption = 0, totalAgonistTriptorelinConsumption = 0, totalTriptorelinConsumption = 0, totalLeuprolideConsumption = 0;
 
-            for (let item in triggerProtocolData) {
-                arrTriggerData.push([item, triggerProtocolData[item]]);
-            }
 
-            for (let item in lpsProtocolData) {
-                arrLpsData.push([item, lpsProtocolData[item]]);
-            }
 
-            for (let item in gonadotropinslData) {
-                arrGonadotropinsData.push([item, gonadotropinslData[item]]);
-            }
+            // for (let item in triggerProtocolData) {
+            //     arrTriggerData.push([item, triggerProtocolData[item]]);
+            // }
+
+            // for (let item in lpsProtocolData) {
+            //     arrLpsData.push([item, lpsProtocolData[item]]);
+            // }
+
+            // for (let item in gonadotropinslData) {
+            //     arrGonadotropinsData.push([item, gonadotropinslData[item]]);
+            // }
 
             for (let item in obstetricsData) {
                 arrObstetricsData.push([
@@ -196,6 +200,104 @@ function filterData(e) {
                     Math.floor(Math.random() * 16777215).toString(16)
                 ]);
             }
+
+            //console.log(arrGonadotropinsData);
+
+            // google.charts.load('current', { 'packages': ['corechart'] });
+            // google.charts.setOnLoadCallback(drawChart);
+
+            // function drawChart() {
+            //     renderPieChart('miPieChartTriggerProtocol', 'Trigger Protocol', arrTriggerData);
+            //     renderPieChart('miLpsProtocol', 'Luteal Phase Support Protocol', arrLpsData);
+            //     renderPieChart('miGonadotropinsProtocol', 'Gonadotropins Protocol', arrGonadotropinsData);
+            //     renderBarchar('miBarChart', 'Obstetrics Bar Char', 'Count', 'Obstetrics', arrObstetricsData);
+            // }
+
+
+
+
+            for (let item of tableData) {
+
+                totalRow = totalRow + parseFloat(item["IVFCycle"]);
+                totalRfshConsumption = totalRfshConsumption + parseFloat(item["RFS CONSUMPTION"]);
+                totalHmgConsumption = totalHmgConsumption + parseFloat(item["HMG CONSUMPTION"]);
+
+                totalProgesteroneConsumption = totalProgesteroneConsumption + parseFloat(item["Progesterone CONSUMPTION"]);
+                totalDydrogesteroneConsumption = totalDydrogesteroneConsumption + parseFloat(item["Dydrogesterone CONSUMPTION"]);
+                totalCombinationConsumption = totalCombinationConsumption + parseFloat(item["Progesretone+Dydrogesterone CONSUMPTION"]);
+
+
+                totalRhcgConsumption = totalRhcgConsumption + parseFloat(item["R-HCG CONSUMPTION"]);
+                totalUhcgConsumption = totalUhcgConsumption + parseFloat(item["U-HCG CONSUMPTION"]);
+                totalAgonistLeuprolideConsumption = totalAgonistLeuprolideConsumption + parseFloat(item["Only Agonist-Leuprolide CONSUMPTION"]);
+                totalAgonistTriptorelinConsumption = totalAgonistTriptorelinConsumption + parseFloat(item["Only Agonist-Triptorelin CONSUMPTION"]);
+                totalTriptorelinConsumption = totalTriptorelinConsumption + parseFloat(item["Dual Trigger (R-HCG + Triptorelin) CONSUMPTION"]);
+                totalLeuprolideConsumption = totalLeuprolideConsumption + parseFloat(item["Dual Trigger (R-HCG + Leuprolide) CONSUMPTION"]);
+
+
+                tableHtml.push(`<tr>
+                    <td>${item["IVFCycle"]}</td>
+                    <td>${item["answerThreeRFSH"]}</td>
+                    <td>${item["RFS CONSUMPTION"]}</td>
+                    <td>${item["answerThreeHMG"]}</td>
+                    <td>${item["HMG CONSUMPTION"]}</td>
+                    <td>${item["answerProgesterone"]}</td>
+                    <td>${item["Progesterone CONSUMPTION"]}</td>
+                    <td>${item["answerFiveDydrogesterone"]}</td>
+                    <td>${item["Dydrogesterone CONSUMPTION"]}</td>
+                    <td>${item["answerFiveCombination"]}</td>
+                    <td>${item["Progesretone+Dydrogesterone CONSUMPTION"]}</td>
+                    <td>${item["answerFourRHCG"]}</td>
+                    <td>${item["R-HCG CONSUMPTION"]}</td>
+                    <td>${item["answerFourUHCG"]}</td>
+                    <td>${item["U-HCG CONSUMPTION"]}</td>
+                    <td>${item["answerFourAgonistL"]}</td>
+                    <td>${item["Only Agonist-Leuprolide CONSUMPTION"]}</td>
+                    <td>${item["answerFourAgonistT"]}</td>
+                    <td>${item["Only Agonist-Triptorelin CONSUMPTION"]}</td>
+                    <td>${item["answerFourRHCGTriptorelin"]}</td>
+                    <td>${item["Dual Trigger (R-HCG + Triptorelin) CONSUMPTION"]}</td>
+                    <td>${item["answerFourRHCGLeuprolide"]}</td>
+                    <td>${item["Dual Trigger (R-HCG + Leuprolide) CONSUMPTION"]}</td>
+                </tr>`);
+            }
+
+            console.log(totalRow);
+            console.log(totalRfshConsumption);
+            console.log(totalHmgConsumption);
+
+            console.log('==========================');
+
+            console.log(totalRow);
+            console.log(totalProgesteroneConsumption);
+            console.log(totalDydrogesteroneConsumption);
+            console.log(totalCombinationConsumption);
+
+            console.log('==========================');
+
+            console.log(totalRhcgConsumption);
+            console.log(totalUhcgConsumption);
+            console.log(totalAgonistLeuprolideConsumption);
+            console.log(totalAgonistTriptorelinConsumption);
+            console.log(totalTriptorelinConsumption);
+            console.log(totalLeuprolideConsumption);
+
+
+
+            arrGonadotropinsData = [['R-FSH', ((totalRfshConsumption / totalRow) * 100)], ['HMG', ((totalHmgConsumption / totalRow) * 100)]];
+
+            arrLpsData = [["Progesterone", ((totalProgesteroneConsumption / totalRow) * 100)], ["Dydrogesterone", ((totalDydrogesteroneConsumption / totalRow) * 100)], ["Combination", ((totalCombinationConsumption / totalRow) * 100)]];
+
+            arrTriggerData = [
+                ["RHCG", ((totalRhcgConsumption / totalRow) * 100)],
+                ["UHCG", ((totalUhcgConsumption / totalRow) * 100)],
+                ["AgonistL", ((totalAgonistLeuprolideConsumption / totalRow) * 100)],
+                ["AgonistT", ((totalAgonistTriptorelinConsumption / totalRow) * 100)],
+                ["RHCGTriptorelin", ((totalTriptorelinConsumption / totalRow) * 100)],
+                ["RHCGLeuprolide", ((totalLeuprolideConsumption / totalRow) * 100)]
+            ];
+
+            // console.log(arrTriggerData);
 
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
@@ -207,7 +309,7 @@ function filterData(e) {
                 renderBarchar('miBarChart', 'Obstetrics Bar Char', 'Count', 'Obstetrics', arrObstetricsData);
             }
 
-
+            $('#miTableReport').html(tableHtml.join(''));
             $('.trigger-protocol-report').addClass('show').removeClass('none');
             isLoaderVisible(false);
 
@@ -252,9 +354,9 @@ function filterData(e) {
 
             let brandList = response.data[0], penCompetitorList = response.data[1], vialCompetitorList = response.data[2], showHtml = [], competitorPenHtml = [], competitorVialHtml = [];
 
-            console.log('brandList', brandList);
-            console.log('penCompetitorList', penCompetitorList);
-            console.log('vialCompetitorList', vialCompetitorList);
+            // console.log('brandList', brandList);
+            // console.log('penCompetitorList', penCompetitorList);
+            // console.log('vialCompetitorList', vialCompetitorList);
 
             for (let item of penCompetitorList) {
                 competitorPenHtml.push(`
@@ -272,8 +374,8 @@ function filterData(e) {
                 `);
             }
 
-            console.log(competitorPenHtml);
-            console.log(competitorVialHtml);
+            // console.log(competitorPenHtml);
+            // console.log(competitorVialHtml);
 
             for (let item of brandList) {
                 showHtml.push(`<tr>
@@ -298,6 +400,58 @@ function filterData(e) {
             console.log(err);
         });
 
+
+    axios
+        .post('/brand-consumption-report', param).then((response) => {
+
+            let ivfTotal = 0, foligrafTotal = 0, humogTotal = 0, asporelixTotal = 0, rhcogTotal = 0, agotricTotal = 0, midydrogenTotal = 0, showHtml = [];
+
+
+            console.log(response.data[0]);
+
+            for (let item of response.data[0]) {
+
+                ivfTotal = ivfTotal + parseFloat(item['IVF Fresh stimulated Cycles']);
+                foligrafTotal = foligrafTotal + parseFloat(item['Foligraf']);
+                humogTotal = humogTotal + parseFloat(item['Humog']);
+                asporelixTotal = asporelixTotal + parseFloat(item['Asporelix']);
+                rhcogTotal = rhcogTotal + parseFloat(item['R-Hucog']);
+                agotricTotal = agotricTotal + parseFloat(item['Agotrig']);
+                midydrogenTotal = midydrogenTotal + parseFloat(item['Midydrogen']);
+
+                // showHtml.push(`
+                // <tr>
+                //     <td>${item['IVF Fresh stimulated Cycles']}</td>
+                //     <td>${item['Foligraf']}</td>
+                //     <td>${item['Humog']}</td>
+                //     <td>${item['Asporelix']}</td>
+                //     <td>${item['R-Hucog']}</td>
+                //     <td>${item['Agotrig']}</td>          
+                //     <td>${item['Midydrogen']}</td>          
+                // </tr>`
+                // );
+            }
+
+            showHtml.push(`
+                <tr>
+                    <td><b>${ivfTotal}</b></td>
+                    <td><b>${foligrafTotal}</b></td>
+                    <td><b>${humogTotal}</b></td>
+                    <td><b>${asporelixTotal}</b></td>
+                    <td><b>${rhcogTotal}</b></td>
+                    <td><b>${agotricTotal}</b></td>          
+                    <td><b>${midydrogenTotal}</b></td>          
+                </tr>
+                `);
+
+
+            $('#brand-consumption-records').html(showHtml.join(''));
+            $('.brand-consumption-report').addClass('show').removeClass('none');
+            isLoaderVisible(false);
+
+        }).catch((err) => {
+            console.log(err);
+        });
 
 
     $('.selectedMonth').text($("#monthCombo option:selected").text());
