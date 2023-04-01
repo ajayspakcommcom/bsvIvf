@@ -46,7 +46,7 @@ function addUpdateBusinessTracker(objParam) {
                     .input("rate", sql.Float, parseFloat(objParam.rate))
                     .input("qty", sql.Int, objParam.qty)
                     .input("isContractApplicable", sql.Bit, objParam.isContractApplicable)
-                    .execute("USP_add_update_BUSINESS_TRACKERv1")
+                    .execute("USP_add_update_BUSINESS_TRACKER")
                     .then(function (resp) {
                         //  console.log(resp.recordset)
                         resolve(resp.recordset);
@@ -218,7 +218,7 @@ function approveCenterBusinessTrackerByHospitalId(objParam) {
                     .input("rbmId", sql.Int, objParam.rbmId)
                     .input("mode", sql.Int, objParam.mode)
                     .input("rejectReason", sql.NVarChar, objParam.rejectReason)
-                    .execute("USP_APPROVE_CUSTOMER_BUSINESS_TRACKER_BY_HOSPITALIDv1")
+                    .execute("USP_APPROVE_CUSTOMER_BUSINESS_TRACKER_BY_HOSPITALID")
                     .then(function (resp) {
                         //console.log(resp.recordset)
                         resolve(resp.recordset);

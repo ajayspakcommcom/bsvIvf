@@ -50,7 +50,7 @@ function addCenterMarketInsight(objParam) {
                     .input("answerFiveCombination", sql.NVarChar, (objParam.answerFiveCombination))
                     .input("answerFourUHCG", sql.NVarChar, (objParam.answerFourUHCG))
 
-                    .execute("USP_ADD_UPDATE_MARKET_INSIGHT_BY_KAMv1")
+                    .execute("USP_ADD_UPDATE_MARKET_INSIGHT_BY_KAM")
                     .then(function (resp) {
                         console.log('success');
                         resolve(resp.recordset);
@@ -127,7 +127,7 @@ function approveCenterMarketInsightByInsightId(objParam) {
                     .input("rbmId", sql.Int, objParam.rbmId)
                     .input("mode", sql.Int, objParam.mode)
                     .input("rejectReason", sql.NVarChar, objParam.rejectReason)
-                    .execute("USP_APPROVE_CUSTOMER_MARKET_INSIGHT_BY_RBMv1")
+                    .execute("USP_APPROVE_CUSTOMER_MARKET_INSIGHT_BY_RBM")
                     .then(function (resp) {
                         //console.log(resp.recordset)
                         resolve(resp.recordset);

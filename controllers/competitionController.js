@@ -88,7 +88,7 @@ function addUpdateCompetitionSkus(objParam) {
                     .input("year", sql.Int, parseInt(objParam.year))
                     .input("value", sql.Float, parseFloat(objParam.value))
                     .input("comments", sql.NText, (objParam.comments))
-                    .execute("USP_ADD_UPDATE_SKU_COMPETITIONv1")
+                    .execute("USP_ADD_UPDATE_SKU_COMPETITION")
                     .then(function (resp) {
                         //  console.log(resp.recordset)
                         resolve(resp.recordset);
@@ -180,7 +180,7 @@ function approveCenterCompetition(objParam) {
                     .input("mode", sql.SmallInt, objParam.mode)
                     .input("rejectReason", sql.NVarChar, objParam.rejectReason)
 
-                    .execute("USP_APPROVE_CUSTOMER_COMPETITIONv1")
+                    .execute("USP_APPROVE_CUSTOMER_COMPETITION")
                     .then(function (resp) {
                         //console.log(resp.recordset)
                         resolve(resp.recordset);

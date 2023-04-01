@@ -45,7 +45,7 @@ function addCenterPotential(objParam) {
                     .input("visitID", sql.Int, objParam.visitID)
 
 
-                    .execute("USP_GET_ADD_UPDATE_CENTER_POTENTIALv1")
+                    .execute("USP_GET_ADD_UPDATE_CENTER_POTENTIAL")
                     .then(function (resp) {
                         console.log(resp.recordset);
                         resolve(resp.recordset);
@@ -182,7 +182,7 @@ function approveCenterPotentialByPotentialId(objParam) {
                     .input("rbmId", sql.Int, objParam.rbmId)
                     .input("mode", sql.Int, objParam.mode)
                     .input("rejectReason", sql.NVarChar, objParam.rejectReason)
-                    .execute("USP_APPROVE_CUSTOMER_POTENTIALS_BY_POTENTIALIDv1")
+                    .execute("USP_APPROVE_CUSTOMER_POTENTIALS_BY_POTENTIALID")
                     .then(function (resp) {
                         //console.log(resp.recordset)
                         resolve(resp.recordset);
