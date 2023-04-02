@@ -46,7 +46,7 @@ listHospitalsList = (objParam) => {
                 var request = new sql.Request(dbConn);
                 request
                     .input("empId", sql.Int, objParam.empId)
-                    .execute("USP_GET_MY_CENTER_LISTv1")
+                    .execute("USP_GET_MY_CENTER_LIST")
                     .then(function (resp) {
                         // console.log(resp)
                         resolve(resp.recordset);

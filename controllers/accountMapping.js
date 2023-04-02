@@ -33,9 +33,9 @@ exports.getAccountMappingPotentialDetail = (req, res, next) => {
 exports.getAccountMappingPotentialListData = (req, res, next) => {
     // console.clear();
     //  console.log(req.session.userDetails.post, '--->')
-    let spName = 'USP_GET_RBM_POTENTIAL_LIST_FOR_APPROVALv1'
+    let spName = 'USP_GET_RBM_POTENTIAL_LIST_FOR_APPROVAL'
     if (req.session.userDetails && req.session.userDetails.post === 'ZBM') {
-        spName = 'USP_GET_ZBM_POTENTIAL_LIST_FOR_APPROVALv1'
+        spName = 'USP_GET_ZBM_POTENTIAL_LIST_FOR_APPROVAL'
     }
     getAccountMappingPotentialListData(req.params, spName).then((result) => {
         res.status(_STATUSCODE).json(result);
@@ -75,9 +75,9 @@ getAccountMappingPotentialListData = (objParam, storeProc) => {
 exports.getAccountMappingMarketInsightListData = (req, res, next) => {
     // console.clear();
     // console.log(req.session.userDetails.post, '--->')
-    let spName = 'USP_GET_RBM_MarketInsights_LIST_FOR_APPROVALv1'
+    let spName = 'USP_GET_RBM_MarketInsights_LIST_FOR_APPROVAL'
     if (req.session.userDetails && req.session.userDetails.post === 'ZBM') {
-        spName = 'USP_GET_ZBM_MarketInsights_LIST_FOR_APPROVALv1'
+        spName = 'USP_GET_ZBM_MarketInsights_LIST_FOR_APPROVAL'
     }
     getAccountMappingMarketInsightListData(req.params, spName).then((result) => {
         res.status(_STATUSCODE).json(result);
@@ -115,9 +115,9 @@ getAccountMappingMarketInsightListData = (objParam, storeProc) => {
 exports.getAccountMappingBusinessListData = (req, res, next) => {
     // console.log(req.params, '--->')
     //  console.log(req.session.userDetails.post, '--->')
-    let spName = 'USP_GET_RBM_BUSINESS_LIST_FOR_APPROVALv1'
+    let spName = 'USP_GET_RBM_BUSINESS_LIST_FOR_APPROVAL'
     if (req.session.userDetails && req.session.userDetails.post === 'ZBM') {
-        spName = 'USP_GET_ZBM_BUSINESS_LIST_FOR_APPROVALv1'
+        spName = 'USP_GET_ZBM_BUSINESS_LIST_FOR_APPROVAL'
     }
     getAccountMappingBusinessListData(req.params, spName).then((result) => {
         res.status(_STATUSCODE).json(result);
@@ -178,7 +178,7 @@ getAccountMappingRateContractListData = (objParam) => {
                 var request = new sql.Request(dbConn);
                 request
                     .input("parentID", sql.Int, objParam.empId)
-                    .execute("USP_GET_ZBM_RATE_CONTRACT_LIST_FOR_APPROVALv1")
+                    .execute("USP_GET_ZBM_RATE_CONTRACT_LIST_FOR_APPROVAL")
                     .then(function (resp) {
                         //console.log(resp)
                         resolve(resp.recordsets);
@@ -208,9 +208,9 @@ exports.getAccountMappingCompetitiontList = (req, res, next) => {
 exports.getAccountMappingCompetitionListData = (req, res, next) => {
     // console.log(req.params, '--->')
     // console.log(req.session.userDetails, '--->')
-    let spName = 'USP_GET_COMPETITION_LIST_FOR_RBMv1'
+    let spName = 'USP_GET_COMPETITION_LIST_FOR_RBM'
     if (req.session.userDetails && req.session.userDetails.post === 'ZBM') {
-        spName = 'USP_GET_COMPETITION_LIST_FOR_ZBMv1'
+        spName = 'USP_GET_COMPETITION_LIST_FOR_ZBM'
     }
     getAccountMappingCompetitionListData(req.params, spName).then((result) => {
         res.status(_STATUSCODE).json(result);
