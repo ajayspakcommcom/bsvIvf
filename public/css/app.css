@@ -9996,3 +9996,9 @@ th.blue {
 th.grey {
   background-color: rgb(230, 230, 230);
 }
+
+.modal-btn {
+  text-decoration: underline;
+  color: blue;
+  ;
+}
