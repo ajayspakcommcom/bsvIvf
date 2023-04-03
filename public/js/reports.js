@@ -423,7 +423,6 @@ function filterData(e) {
                 `);
             }
 
-
             $('#progress-progress-report').html(showHtml.join(''));
             $('.progress-report').addClass('show').removeClass('none');
             isLoaderVisible(false);
@@ -431,7 +430,6 @@ function filterData(e) {
         }).catch((err) => {
             console.log(err);
         });
-
 
     $('.selectedMonth').text($("#monthCombo option:selected").text());
 
@@ -446,7 +444,6 @@ $('#progress-progress-report').on('click', '.modal-btn', function () {
     // console.log(marketInsightEnteredData);
     // console.log(businessEnteredData);
     // console.log(competitionEntered);
-
 
     if ($(this).attr('type') === 'potential') {
         pendingList = potentialEnteredData.filter(e => (e.empID == empId && e.PotentialedEntered.toLowerCase() === 'no'));
@@ -476,7 +473,15 @@ $('#progress-progress-report').on('click', '.modal-btn', function () {
         `);
     }
 
-    $('#pending-centre-report').html(showHtml.join(''));
+    if (pendingList.length > 0) {
+        $('#pending-centre-report').html(showHtml.join(''));
+    } else {
+        $('#pending-centre-report').html(`
+            <tr>
+             <td colspan="2"><p class="text-center">No centre found!</p></td>
+            </tr>
+        `);
+    }
 
 });
 

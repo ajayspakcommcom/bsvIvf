@@ -10000,5 +10000,8 @@ th.grey {
 .modal-btn {
   text-decoration: underline;
   color: blue;
-  ;
+}
+
+#pending-centre-report p {
+  margin-bottom: 0;
 }
