@@ -9919,7 +9919,8 @@ svg.rejected {
 .trigger-protocol-report,
 .donor-self-report,
 .folifraf-analysis-report,
-.brand-consumption-report {
+.brand-consumption-report,
+.progress-report {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
@@ -9935,7 +9936,8 @@ svg.rejected {
 .trigger-protocol-report h3,
 .donor-self-report h3,
 .folifraf-analysis-report h3,
-.brand-consumption-report h3 {
+.brand-consumption-report h3,
+.progress-report h3 {
   margin: 0 0 15px 0;
   font-size: 18px;
 }
@@ -9947,7 +9949,8 @@ svg.rejected {
 .trigger-protocol-report.none,
 .donor-self-report.none,
 .folifraf-analysis-report.none,
-.brand-consumption-report.none {
+.brand-consumption-report.none,
+.progress-report.none {
   display: none;
 }
 
@@ -9958,7 +9961,8 @@ svg.rejected {
 .trigger-protocol-report.show,
 .donor-self-report.show,
 .folifraf-analysis-report.show,
-.brand-consumption-report.show {
+.brand-consumption-report.show,
+.progress-report.show {
   display: block;
   margin-bottom: 20px;
 }
@@ -9971,4 +9975,24 @@ svg.rejected {
   display: grid;
   column-gap: 20px;
   grid-template-columns: auto auto;
+}
+
+th.red {
+  background: #ff9999;
+}
+
+th.green {
+  background-color: rgb(153, 255, 153);
+}
+
+th.pink {
+  background-color: rgb(255, 179, 193);
+}
+
+th.blue {
+  background-color: rgb(179, 179, 255);
+}
+
+th.grey {
+  background-color: rgb(230, 230, 230);
 }

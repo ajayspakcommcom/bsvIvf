@@ -262,25 +262,25 @@ function filterData(e) {
                 </tr>`);
             }
 
-            console.log(totalRow);
-            console.log(totalRfshConsumption);
-            console.log(totalHmgConsumption);
+            // console.log(totalRow);
+            // console.log(totalRfshConsumption);
+            // console.log(totalHmgConsumption);
 
-            console.log('==========================');
+            // console.log('==========================');
 
-            console.log(totalRow);
-            console.log(totalProgesteroneConsumption);
-            console.log(totalDydrogesteroneConsumption);
-            console.log(totalCombinationConsumption);
+            // console.log(totalRow);
+            // console.log(totalProgesteroneConsumption);
+            // console.log(totalDydrogesteroneConsumption);
+            // console.log(totalCombinationConsumption);
 
-            console.log('==========================');
+            // console.log('==========================');
 
-            console.log(totalRhcgConsumption);
-            console.log(totalUhcgConsumption);
-            console.log(totalAgonistLeuprolideConsumption);
-            console.log(totalAgonistTriptorelinConsumption);
-            console.log(totalTriptorelinConsumption);
-            console.log(totalLeuprolideConsumption);
+            // console.log(totalRhcgConsumption);
+            // console.log(totalUhcgConsumption);
+            // console.log(totalAgonistLeuprolideConsumption);
+            // console.log(totalAgonistTriptorelinConsumption);
+            // console.log(totalTriptorelinConsumption);
+            // console.log(totalLeuprolideConsumption);
 
 
 
@@ -407,7 +407,7 @@ function filterData(e) {
             let ivfTotal = 0, foligrafTotal = 0, humogTotal = 0, asporelixTotal = 0, rhcogTotal = 0, agotricTotal = 0, midydrogenTotal = 0, showHtml = [];
 
 
-            console.log(response.data[0]);
+            //console.log(response.data[0]);
 
             for (let item of response.data[0]) {
 
@@ -447,6 +447,57 @@ function filterData(e) {
 
             $('#brand-consumption-records').html(showHtml.join(''));
             $('.brand-consumption-report').addClass('show').removeClass('none');
+            isLoaderVisible(false);
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
+
+    axios
+        .post('/team-progress-report', param).then((response) => {
+
+            console.log(response);
+
+            let showHtml = [], zbmRbmList = response.data[0], potentialEnteredList = response.data[1], marketInsightEnteredList = response.data[3], businessEnteredList = response.data[2], competitionEnteredList = response.data[4];
+
+            console.log(potentialEnteredList);
+            console.log(marketInsightEnteredList);
+            console.log(businessEnteredList);
+            console.log(competitionEnteredList);
+
+
+            for (let item of zbmRbmList) {
+                showHtml.push(`
+                    <tr>
+                        <td>                            
+                            ${item.ZBM}
+                            <br />
+                            ${item.RBM}
+                            <br />
+                            ${item.FIRSTname}
+                        </td>
+                        <td>${getTotalHospital(item.empid, potentialEnteredList)}</td>
+
+                        <td>${getTotalPotentialEntered(item.empid, potentialEnteredList, 'potential')}</td>
+                        <td>${getTotalPotentialNotEntered(item.empid, potentialEnteredList, 'potential')}</td>
+
+                        
+                        <td>${getTotalPotentialEntered(item.empid, marketInsightEnteredList, 'market-insight')}</td>
+                        <td>${getTotalPotentialNotEntered(item.empid, marketInsightEnteredList, 'market-insight')}</td>
+
+                        <td>${getTotalPotentialEntered(item.empid, businessEnteredList, 'business')}</td>
+                        <td>${getTotalPotentialNotEntered(item.empid, businessEnteredList, 'business')}</td>
+
+                        <td>${getTotalPotentialEntered(item.empid, competitionEnteredList, 'competition')}</td>
+                        <td>${getTotalPotentialNotEntered(item.empid, competitionEnteredList, 'competition')}</td>
+                    </tr>
+                `);
+            }
+
+
+            $('#progress-progress-report').html(showHtml.join(''));
+            $('.progress-report').addClass('show').removeClass('none');
             isLoaderVisible(false);
 
         }).catch((err) => {
