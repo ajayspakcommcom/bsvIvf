@@ -215,15 +215,12 @@ function validateMe() {
       comments = $(`#comments_${skuBrand.brandId}_${skuBrand.competitorId}`) ? $(`#comments_${skuBrand.brandId}_${skuBrand.competitorId}`).val() : '';
 
     if (value > 0) {
+      console.log(comments);
       if (comments === '') {
         alert('please enter other comment');
-        isTrue = false;
         $(`#comments_${skuBrand.brandId}_${skuBrand.competitorId}`).focus();
-      } else {
-        isTrue = true;
+        isTrue = false;
       }
-    } else {
-      isTrue = true;
     }
 
     //if (value > 0) {
