@@ -220,6 +220,8 @@ function validateMe() {
         alert('please enter other comment');
         $(`#comments_${skuBrand.brandId}_${skuBrand.competitorId}`).focus();
         isTrue = false;
+      } else {
+        isTrue = true;
       }
     }
 
