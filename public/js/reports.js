@@ -461,7 +461,6 @@ $('#progress-progress-report').on('click', '.modal-btn', function () {
         pendingList = competitionEntered.filter(e => (e.empID == empId && e.CompEntered.toLowerCase() === 'no'));
     }
 
-
     console.log(pendingList);
 
     for (let item of pendingList) {
@@ -484,8 +483,6 @@ $('#progress-progress-report').on('click', '.modal-btn', function () {
     }
 
 });
-
-
 
 
 function getVennReports(e) {

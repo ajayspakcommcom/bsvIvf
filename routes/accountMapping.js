@@ -30,4 +30,9 @@ router.get('/account-mapping/:empId/competition-list', controller.getAccountMapp
 router.post('/account-mapping/:empId/competition-list', controller.getAccountMappingCompetitionListData);
 
 
+router.get('/team-report', controller.getTeamReport);
+
+
+
+
 module.exports = router;
