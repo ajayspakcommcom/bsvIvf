@@ -316,38 +316,40 @@ function validateMe() {
         ;
 
 
-        if (unitSold > 0) {
-            param = {
-                empId: empId,
-                hospitalId: hospitalId,
-                month: month,
-                year: year,
-                brandId: brandId,
-                brandGroupID: brandGroupId,
-                skuId: skuId,
-                rate: finalPrice,
-                qty: unitSold,
-                isContractApplicable: isContractApplicableBool
-            }
-            //console.log(param)
-            endPoints.push(param);
-            // axios
-            // .post('/sku-add/', param).then((response) => {
-            //     //console.log(response.data[0])
-            //     let res = response.data[0];
-            //     if (res.sucess === 'true') {
-            //       //  redirect('/hospitals');
-            //     } else {
-            //         //     $('#lblMsg').text(res.msg);
-            //     }
-            // }).catch((err) => {
-            //     console.log(err);
-            // });
+        //if (unitSold > 0) {
+        param = {
+            empId: empId,
+            hospitalId: hospitalId,
+            month: month,
+            year: year,
+            brandId: brandId,
+            brandGroupID: brandGroupId,
+            skuId: skuId,
+            rate: finalPrice,
+            qty: unitSold,
+            isContractApplicable: isContractApplicableBool
         }
+        //console.log(param)
+        endPoints.push(param);
+        // axios
+        // .post('/sku-add/', param).then((response) => {
+        //     //console.log(response.data[0])
+        //     let res = response.data[0];
+        //     if (res.sucess === 'true') {
+        //       //  redirect('/hospitals');
+        //     } else {
+        //         //     $('#lblMsg').text(res.msg);
+        //     }
+        // }).catch((err) => {
+        //     console.log(err);
+        // });
+        //}
 
     })
+
     //console.log(endPoints)
     // Return our response in the allData variable as an array
+
     Promise.all(endPoints.map((endpoint) => axios.post('/sku-add/', endpoint))).then(
         axios.spread((...allData) => {
             //console.log({ allData });
@@ -355,6 +357,7 @@ function validateMe() {
             redirect('/hospitals');
         })
     );
+
     return false;
 
 }

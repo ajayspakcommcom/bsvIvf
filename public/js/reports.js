@@ -1,76 +1,6 @@
 
-// let designationWiseData = [], _empId = null;
 
-// function getReports() {
-//     getDesignationWiseData();
-// }
-
-// function getDesignationWiseData() {
-//     axios
-//         .get('/potential-report-data').then((response) => {
-//             designationWiseData = response.data;
-//             setDesignationFilters(null, null);
-//         }).catch((err) => {
-//             console.log(err);
-//         });
-// }
-
-// //setMonth('monthCombo');
-
-// function setDesignationFilters() {
-
-//     let zbmData = designationWiseData.filter(z => z.Designation.toLowerCase() === 'zbm'), zbmHtml = [],
-//         rbmData = designationWiseData.filter(r => r.Designation.toLowerCase() === 'rbm'), rbmHtml = [],
-//         kamData = designationWiseData.filter(k => k.Designation.toLowerCase() === 'kam'), kamHtml = [];
-
-//     zbmHtml.push(`<option value="none" selected disabled hidden>Select Zbm</option>`);
-//     rbmHtml.push(`<option value="none" selected disabled hidden>Select Rbm</option>`);
-//     kamHtml.push(`<option value="none" selected disabled hidden>Select Kam</option>`);
-
-//     for (let item of zbmData) {
-//         zbmHtml.push(`<option value="${item.EmpID}">${item.firstName}</option>`);
-//     }
-
-//     for (let item of rbmData) {
-//         rbmHtml.push(`<option value="${item.EmpID}">${item.firstName}</option>`);
-//     }
-
-//     for (let item of kamData) {
-//         kamHtml.push(`<option value="${item.EmpID}">${item.firstName}</option>`);
-//     }
-
-//     $('#zbmCombo').html(zbmHtml.join(''));
-//     $('#rbmCombo').html(rbmHtml.join(''));
-//     $('#kamCombo').html(kamHtml.join(''));
-// }
-
-
-// function selectedZbm(event) {
-//     let rbmData = designationWiseData.filter(r => r.Designation.toLowerCase() === 'rbm'), rbmHtml = [];
-//     rbmData = rbmData.filter(r => r.ParentID == event.target.value);
-//     rbmHtml.push(`<option value="none" selected disabled hidden>Select Rbm</option>`);
-//     for (let item of rbmData) {
-//         rbmHtml.push(`<option value="${item.EmpID}">${item.firstName}</option>`);
-//     }
-//     $('#rbmCombo').html(rbmHtml.join(''));
-//     _empId = event.target.value;
-// }
-
-// function selectedRbm(event) {
-//     let kamData = designationWiseData.filter(k => k.Designation.toLowerCase() === 'kam'), kamHtml = [];
-//     kamData = kamData.filter(k => k.ParentID == event.target.value);
-//     kamHtml.push(`<option value="none" selected disabled hidden>Select Kam</option>`);
-//     for (let item of kamData) {
-//         kamHtml.push(`<option value="${item.EmpID}">${item.firstName}</option>`);
-//     }
-//     $('#kamCombo').html(kamHtml.join(''));
-//     _empId = event.target.value;
-// }
-
-// function selectedKam(event) {
-//     _empId = event.target.value;
-// }
-
+let potentialEnteredData, marketInsightEnteredData, businessEnteredData, competitionEntered;
 
 function filterData(e) {
     e.preventDefault();
@@ -262,25 +192,25 @@ function filterData(e) {
                 </tr>`);
             }
 
-            console.log(totalRow);
-            console.log(totalRfshConsumption);
-            console.log(totalHmgConsumption);
+            // console.log(totalRow);
+            // console.log(totalRfshConsumption);
+            // console.log(totalHmgConsumption);
 
-            console.log('==========================');
+            // console.log('==========================');
 
-            console.log(totalRow);
-            console.log(totalProgesteroneConsumption);
-            console.log(totalDydrogesteroneConsumption);
-            console.log(totalCombinationConsumption);
+            // console.log(totalRow);
+            // console.log(totalProgesteroneConsumption);
+            // console.log(totalDydrogesteroneConsumption);
+            // console.log(totalCombinationConsumption);
 
-            console.log('==========================');
+            // console.log('==========================');
 
-            console.log(totalRhcgConsumption);
-            console.log(totalUhcgConsumption);
-            console.log(totalAgonistLeuprolideConsumption);
-            console.log(totalAgonistTriptorelinConsumption);
-            console.log(totalTriptorelinConsumption);
-            console.log(totalLeuprolideConsumption);
+            // console.log(totalRhcgConsumption);
+            // console.log(totalUhcgConsumption);
+            // console.log(totalAgonistLeuprolideConsumption);
+            // console.log(totalAgonistTriptorelinConsumption);
+            // console.log(totalTriptorelinConsumption);
+            // console.log(totalLeuprolideConsumption);
 
 
 
@@ -407,7 +337,7 @@ function filterData(e) {
             let ivfTotal = 0, foligrafTotal = 0, humogTotal = 0, asporelixTotal = 0, rhcogTotal = 0, agotricTotal = 0, midydrogenTotal = 0, showHtml = [];
 
 
-            console.log(response.data[0]);
+            //console.log(response.data[0]);
 
             for (let item of response.data[0]) {
 
@@ -454,9 +384,105 @@ function filterData(e) {
         });
 
 
+    axios
+        .post('/team-progress-report', param).then((response) => {
+
+            //console.log(response);
+
+            let showHtml = [], zbmRbmList = response.data[0], potentialEnteredList = response.data[1], marketInsightEnteredList = response.data[3], businessEnteredList = response.data[2], competitionEnteredList = response.data[4];
+
+            potentialEnteredData = potentialEnteredList;
+            marketInsightEnteredData = marketInsightEnteredList;
+            businessEnteredData = businessEnteredList;
+            competitionEntered = competitionEnteredList;
+
+            for (let item of zbmRbmList) {
+                showHtml.push(`
+                    <tr>
+                        <td>                            
+                            ${item.ZBM}
+                            <br />
+                            ${item.RBM}
+                            <br />
+                            ${item.FIRSTname}
+                        </td>
+                        <td>${getTotalHospital(item.empid, potentialEnteredList)}</td>
+
+                        <td>${getTotalPotentialEntered(item.empid, potentialEnteredList, 'potential')}</td>                        
+                        <td> <a href="#myModal" class="modal-btn" data-toggle="modal" id="${item.empid}" type="potential"> ${getTotalPotentialNotEntered(item.empid, potentialEnteredList, 'potential')}</a></td>
+
+                        <td>${getTotalPotentialEntered(item.empid, marketInsightEnteredList, 'market-insight')}</td>
+                        <td><a href="#myModal" class="modal-btn" data-toggle="modal" data-target="#myModal" id="${item.empid}" type="market-insight"> ${getTotalPotentialNotEntered(item.empid, marketInsightEnteredList, 'market-insight')} </a></td>
+
+                        <td>${getTotalPotentialEntered(item.empid, businessEnteredList, 'business')}</td>
+                        <td><a href="#myModal" class="modal-btn" data-toggle="modal" data-target="#myModal" id="${item.empid}" type="business">${getTotalPotentialNotEntered(item.empid, businessEnteredList, 'business')}</a></td>
+
+                        <td>${getTotalPotentialEntered(item.empid, competitionEnteredList, 'competition')}</td>
+                        <td><a href="#myModal" class="modal-btn" data-toggle="modal" data-target="#myModal" id="${item.empid}" type="competition">${getTotalPotentialNotEntered(item.empid, competitionEnteredList, 'competition')}</a></td>
+                    </tr>
+                `);
+            }
+
+            $('#progress-progress-report').html(showHtml.join(''));
+            $('.progress-report').addClass('show').removeClass('none');
+            isLoaderVisible(false);
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
     $('.selectedMonth').text($("#monthCombo option:selected").text());
 
 }
+
+
+$('#progress-progress-report').on('click', '.modal-btn', function () {
+
+    let pendingList = [], showHtml = [], empId = $(this).attr('id');
+
+    // console.log(potentialEnteredData);
+    // console.log(marketInsightEnteredData);
+    // console.log(businessEnteredData);
+    // console.log(competitionEntered);
+
+    if ($(this).attr('type') === 'potential') {
+        pendingList = potentialEnteredData.filter(e => (e.empID == empId && e.PotentialedEntered.toLowerCase() === 'no'));
+    }
+
+    if ($(this).attr('type') === 'market-insight') {
+        pendingList = marketInsightEnteredData.filter(e => (e.empID == empId && e.MarketInsightdEntered.toLowerCase() === 'no'));
+    }
+
+    if ($(this).attr('type') === 'business') {
+        pendingList = businessEnteredData.filter(e => (e.empID == empId && e.BusinessdEntered.toLowerCase() === 'no'));
+    }
+
+    if ($(this).attr('type') === 'competition') {
+        pendingList = competitionEntered.filter(e => (e.empID == empId && e.CompEntered.toLowerCase() === 'no'));
+    }
+
+    console.log(pendingList);
+
+    for (let item of pendingList) {
+        showHtml.push(`
+            <tr>
+                <td>${item.CENTRENAME == null ? '----' : item.CENTRENAME}</td>
+                <td>${item.DoctorName == null ? '----' : item.DoctorName}</td>
+            </tr>
+        `);
+    }
+
+    if (pendingList.length > 0) {
+        $('#pending-centre-report').html(showHtml.join(''));
+    } else {
+        $('#pending-centre-report').html(`
+            <tr>
+             <td colspan="2"><p class="text-center">No centre found!</p></td>
+            </tr>
+        `);
+    }
+
+});
 
 
 function getVennReports(e) {

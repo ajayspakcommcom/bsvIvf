@@ -592,4 +592,39 @@ getBrandConsumptionReport = (objParam) => {
     });
 };
 
+//
+
+exports.getTeamProgressReport = (req, res, next) => {
+    getTeamProgressReport(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getTeamProgressReport = (objParam) => {
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("empId", sql.Int, parseInt(objParam.empId))
+                    .input("month", sql.Int, parseInt(objParam.month))
+                    .input("Year", sql.Int, parseInt(objParam.Year))
+                    .execute("USP_VALIDATE_TEAM_PROGRESS_REPORT")
+                    .then(function (resp) {
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        // console.log(err);
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
 

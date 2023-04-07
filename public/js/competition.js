@@ -206,36 +206,55 @@ function validateMe() {
     empId = parseInt(userData.empId),
     year = $('#cmbYear').val(),
     month = $('#cmbMonth').val(),
-    endPoints = [];
+    endPoints = [],
+    isTrue = false;
+
   competitorSkus.forEach(skuBrand => {
     //console.log(skuBrand)
     let value = parseFloat($(`#txt_${skuBrand.brandId}_${skuBrand.competitorId}_Value`).val()),
       comments = $(`#comments_${skuBrand.brandId}_${skuBrand.competitorId}`) ? $(`#comments_${skuBrand.brandId}_${skuBrand.competitorId}`).val() : '';
 
     if (value > 0) {
-      let param = {
-        value: !isNaN(value) ? value : 0,
-        empId: empId,
-        brandId: parseInt(`${skuBrand.brandId}`),
-        centerId: parseInt(centerId),
-        year: $('#cmbYear').val(),
-        month: $('#cmbMonth').val(),
-        skuId: parseInt(`${skuBrand.competitorId}`),
-        comments: comments
+      console.log(comments);
+      if (comments === '') {
+        alert('please enter other comment');
+        $(`#comments_${skuBrand.brandId}_${skuBrand.competitorId}`).focus();
+        isTrue = false;
+      } else {
+        isTrue = true;
       }
-      //  console.log(param)
-      endPoints.push(param);
-      //console.log(endPoints);
     }
 
+    //if (value > 0) {
+    let param = {
+      value: !isNaN(value) ? value : 0,
+      empId: empId,
+      brandId: parseInt(`${skuBrand.brandId}`),
+      centerId: parseInt(centerId),
+      year: $('#cmbYear').val(),
+      month: $('#cmbMonth').val(),
+      skuId: parseInt(`${skuBrand.competitorId}`),
+      comments: comments
+    }
+    //  console.log(param)
+    endPoints.push(param);
+    //console.log(endPoints);
+    //}
+
   });
-  Promise.all(endPoints.map((endpoint) => axios.post('/competitor-sku-add/', endpoint))).then(
-    axios.spread((...allData) => {
-      // console.log({ allData });
-      redirect('/hospitals');
-      isBtnLoaderVisible(false);
-    })
-  );
+
+  if (isTrue) {
+    console.log('form true');
+    Promise.all(endPoints.map((endpoint) => axios.post('/competitor-sku-add/', endpoint))).then(
+      axios.spread((...allData) => {
+        // console.log({ allData });
+        redirect('/hospitals');
+        isBtnLoaderVisible(false);
+      })
+    );
+  }
+
+
 }
 
 // function isNumber(evt) {

@@ -507,6 +507,50 @@ function enabledMonth() {
     $('#cmbMonth').removeAttr('disabled');
 }
 
+function getTotalHospital(empId, arrList) {
+    return arrList.filter(e => (e.empID == empId)).length;
+}
+
+function getTotalPotentialEntered(empId, arrList, type) {
+
+    if (type == 'potential') {
+        return arrList.filter(e => (e.empID == empId && e.PotentialedEntered.toLowerCase() === 'yes')).length;
+    }
+
+    if (type == 'market-insight') {
+        return arrList.filter(e => (e.empID == empId && e.MarketInsightdEntered.toLowerCase() === 'yes')).length;
+    }
+
+    if (type == 'business') {
+        return arrList.filter(e => (e.empID == empId && e.BusinessdEntered.toLowerCase() === 'yes')).length;
+    }
+
+    if (type == 'competition') {
+        return arrList.filter(e => (e.empID == empId && e.CompEntered.toLowerCase() === 'yes')).length;
+    }
+
+}
+
+function getTotalPotentialNotEntered(empId, arrList, type) {
+    if (type == 'potential') {
+        return arrList.filter(e => (e.empID == empId && e.PotentialedEntered.toLowerCase() === 'no')).length;
+    }
+
+    if (type == 'market-insight') {
+        return arrList.filter(e => (e.empID == empId && e.MarketInsightdEntered.toLowerCase() === 'no')).length;
+    }
+
+    if (type == 'business') {
+        return arrList.filter(e => (e.empID == empId && e.BusinessdEntered.toLowerCase() === 'no')).length;
+    }
+
+    if (type == 'competition') {
+        return arrList.filter(e => (e.empID == empId && e.CompEntered.toLowerCase() === 'no')).length;
+    }
+}
+
+
+
 
 
 

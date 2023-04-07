@@ -39,6 +39,7 @@ router.post('/foligraf-brand-analysis-report', reportController.getFoligrafBrand
 router.post('/brand-analysis-report', reportController.getBrandAnalysis);
 
 router.post('/brand-consumption-report', reportController.getBrandConsumptionReport);
+router.post('/team-progress-report', reportController.getTeamProgressReport);
 
 
 
