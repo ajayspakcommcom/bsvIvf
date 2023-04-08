@@ -106,6 +106,7 @@ function getMarketInsightDetails() {
 
 
     isLoaderVisible(true);
+    isDataApproved('two-btn-wrapper-potential');
 
     let insightId = new URLSearchParams(window.location.search).get('insightId'),
         centerId = new URLSearchParams(window.location.search).get('centreId'), params;
@@ -130,7 +131,7 @@ function getMarketInsightDetails() {
             $('#AnswerTwo').val(ivfCycle);
             console.log(data);
             if (data) {
-                data.answerOne == true ? $("[name=obstetricsRadio]")[0].setAttribute("checked", "checked") : $("[name=obstetricsRadio]")[1].setAttribute("checked", "checked");
+                //data.answerOne == true ? $("[name=obstetricsRadio]")[0].setAttribute("checked", "checked") : $("[name=obstetricsRadio]")[1].setAttribute("checked", "checked");
                 $('#AnswerTwo').val(ivfCycle);
                 $('#answerThreeRFSH').val(data.answerThreeRFSH);
                 $('#answerThreeHMG').val(data.answerThreeHMG);

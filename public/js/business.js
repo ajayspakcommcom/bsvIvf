@@ -17,6 +17,7 @@ function loadMonthYear() {
 async function getSkuDetails() {
 
     isLoaderVisible(true);
+    isDataApproved('two-btn-wrapper');
 
     let skuBrands = ['FOLIGRAF', 'HUMOG', 'ASPORELIX', 'R-HUCOG', 'FOLICULIN', 'AGOTRIG', 'MIDYDROGEN', 'SPRIMEO'],
         hospitalId = new URLSearchParams(window.location.search).get('cid'),

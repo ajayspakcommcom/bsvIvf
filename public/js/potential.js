@@ -163,6 +163,8 @@ function getPotentialsDetails() {
     isLoaderVisible(true);
     getMasterData();
 
+    isDataApproved('two-btn-wrapper-potential');
+
     let userData = JSON.parse(localStorage.getItem("BSV_IVF_Admin_Data")),
         param = { hospitalId: '', empId: '' },
         urlArr = window.location.href.split('/'),

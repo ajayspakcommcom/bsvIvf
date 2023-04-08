@@ -25,6 +25,7 @@ async function getSkuDetails() {
 
   //console.log('competition');
   isLoaderVisible(true);
+  isDataApproved('two-btn-wrapper');
 
   let centerId = new URLSearchParams(window.location.search).get('cid'),
     year = $('#cmbYear').val(),

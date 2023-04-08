@@ -549,6 +549,13 @@ function getTotalPotentialNotEntered(empId, arrList, type) {
     }
 }
 
+function isDataApproved(elem) {
+    let isApproved = new URLSearchParams(window.location.search).get('isApproved');
+    if (isApproved === 'approved') {
+        $(`.${elem}`).hide();
+    }
+}
+
 
 
 
