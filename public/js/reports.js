@@ -399,13 +399,9 @@ function filterData(e) {
             for (let item of zbmRbmList) {
                 showHtml.push(`
                     <tr>
-                        <td>                            
-                            ${item.ZBM}
-                            <br />
-                            ${item.RBM}
-                            <br />
-                            ${item.FIRSTname}
-                        </td>
+                        <td>${item.ZBM}</td>
+                        <td>${item.RBM}</td>
+                        <td>${item.FIRSTname}</td>
                         <td>${getTotalHospital(item.empid, potentialEnteredList)}</td>
 
                         <td>${getTotalPotentialEntered(item.empid, potentialEnteredList, 'potential')}</td>                        
