@@ -29,7 +29,7 @@ function letMeLogin() {
                             (document.location.href = _URL._POSTLOGINURL);
                         } else if (userDesignation.toLowerCase() == 'admin') {
                             console.log('Admin');
-                            redirect('/dashboard-chart-report');
+                            redirect('/report');
                         }
                         else {
                             _URL._POSTLOGINURL = '/employees/kam-list';

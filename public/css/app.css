@@ -9920,13 +9920,18 @@ svg.rejected {
 .donor-self-report,
 .folifraf-analysis-report,
 .brand-consumption-report,
-.progress-report {
+.progress-report,
+.potential-dump-report,
+.market-insight-dump-report,
+.business-dump-report,
+.competition-dump-report {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -webkit-border-radius: 10px;
   background-color: #fff;
   padding: 15px 15px;
+  overflow: auto;
 }
 
 .iui-cycle-report h3,
@@ -9937,7 +9942,11 @@ svg.rejected {
 .donor-self-report h3,
 .folifraf-analysis-report h3,
 .brand-consumption-report h3,
-.progress-report h3 {
+.progress-report h3,
+.potential-dump-report,
+.market-insight-dump-report h3,
+.business-dump-report h3,
+.competition-dump-report h3 {
   margin: 0 0 15px 0;
   font-size: 18px;
 }
@@ -9950,7 +9959,11 @@ svg.rejected {
 .donor-self-report.none,
 .folifraf-analysis-report.none,
 .brand-consumption-report.none,
-.progress-report.none {
+.progress-report.none,
+.potential-dump-report.none,
+.market-insight-dump-report.none,
+.business-dump-report.none,
+.competition-dump-report.none {
   display: none;
 }
 
@@ -9962,7 +9975,11 @@ svg.rejected {
 .donor-self-report.show,
 .folifraf-analysis-report.show,
 .brand-consumption-report.show,
-.progress-report.show {
+.progress-report.show,
+.potential-dump-report.show,
+.market-insight-dump-report.show,
+.business-dump-report.show,
+.competition-dump-report.show {
   display: block;
   margin-bottom: 20px;
 }

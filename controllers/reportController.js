@@ -37,6 +37,10 @@ exports.dataReport = (req, res, next) => {
     res.sendFile(`${path.dirname(process.mainModule.filename)}/public/views/report/report.html`);
 };
 
+exports.dumpDataReport = (req, res, next) => {
+    res.sendFile(`${path.dirname(process.mainModule.filename)}/public/views/report/dump-data.html`);
+};
+
 
 exports.dataReportVenn = (req, res, next) => {
     res.sendFile(`${path.dirname(process.mainModule.filename)}/public/views/report/businessUnitVenn.html`);
@@ -187,6 +191,138 @@ getHospCountBrandWise = (objParam) => {
             });
     });
 };
+
+// ajay
+exports.getPotentialDumpReport = (req, res, next) => {
+    getPotentialDumpReport(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getPotentialDumpReport = (objParam) => {
+    console.log(objParam);
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("month", sql.Int, parseInt(objParam.month))
+                    .input("Year", sql.Int, parseInt(objParam.Year))
+                    .execute("USP_GET_POTENTIAL_REPORT_FOR_EXCEL")
+                    .then(function (resp) {
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
+
+exports.getBusinessDumpReport = (req, res, next) => {
+    getBusinessDumpReport(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getBusinessDumpReport = (objParam) => {
+    console.log(objParam);
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("month", sql.Int, parseInt(objParam.month))
+                    .input("Year", sql.Int, parseInt(objParam.Year))
+                    .execute("USP_GET_BUSINESS_REPORT_FOR_EXCEL")
+                    .then(function (resp) {
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
+
+exports.getmarketInsightDumpReport = (req, res, next) => {
+    getmarketInsightDumpReport(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getmarketInsightDumpReport = (objParam) => {
+    console.log(objParam);
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("month", sql.Int, parseInt(objParam.month))
+                    .input("Year", sql.Int, parseInt(objParam.Year))
+                    .execute("USP_GET_MARKET_INSIGHT_REPORT_FOR_EXCEL")
+                    .then(function (resp) {
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
+exports.getCompetitionDumpReport = (req, res, next) => {
+    getCompetitionDumpReport(req.body).then((result) => {
+        res.status(200).json(result);
+    });
+};
+
+getCompetitionDumpReport = (objParam) => {
+    console.log(objParam);
+    return new Promise((resolve) => {
+        var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
+        dbConn
+            .connect()
+            .then(function () {
+                var request = new sql.Request(dbConn);
+                request
+                    .input("month", sql.Int, parseInt(objParam.month))
+                    .input("Year", sql.Int, parseInt(objParam.Year))
+                    .execute("EUSP_GET_COMPETITION_REPORT_FOR_EXCEL")
+                    .then(function (resp) {
+                        resolve(resp.recordsets);
+                        dbConn.close();
+                    })
+                    .catch(function (err) {
+                        dbConn.close();
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+// ajay
 
 exports.getTop15BusinessRecords = (req, res, next) => {
     getTop15BusinessRecords(req.body).then((result) => {

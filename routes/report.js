@@ -10,6 +10,15 @@ router.get('/rate-with-product-report', reportController.rateWithProductReport);
 router.get('/rc-agreement-report', reportController.rcAgreementReport);
 router.get('/dashboard-chart-report', reportController.dashboardChartReport);
 router.get('/report', reportController.dataReport);
+
+router.get('/dump-data-report', reportController.dumpDataReport);
+router.post('/potential-dump-report', reportController.getPotentialDumpReport);
+router.post('/business-dump-report', reportController.getBusinessDumpReport);
+router.post('/market-insight-dump-report', reportController.getmarketInsightDumpReport);
+router.post('/competition-dump-report', reportController.getCompetitionDumpReport);
+
+
+
 router.get('/reportVenn', reportController.dataReportVenn);
 router.post('/report/potential', reportController.getPotentialData);
 router.post('/report/RCAgreement', reportController.getRateContractData);

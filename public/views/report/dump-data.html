@@ -1,0 +1,409 @@
+<html>
+
+<head>
+    <title>FERTIBIZ : Dump Data Reports </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/css/daterangepicker.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+
+<body class="inside-theme">
+
+    <div class="theme-wrapper">
+        <div class="navigation"></div>
+        <div class="content">
+            <div class="content-bg overflow">
+                <div class="right-header">
+                    <h1>Dump Data Reports</h1>
+                    <ul id="right-nav"></ul>
+                </div>
+
+                <div class="right-content">
+
+                    <form>
+                        <div class="hospital-search-wrapper admin-filter-wrapper">
+                            <div class="form-group">
+                                <select class="form-control" id="monthCombo">
+                                    <option value="none">Select Month</option>
+                                    <option value="1">Jan</option>
+                                    <option value="2">Feb</option>
+                                    <option value="3" selected>Mar</option>
+                                    <option value="4">Apr</option>
+                                    <option value="5">May</option>
+                                    <option value="6">Jun</option>
+                                    <option value="7">Jul</option>
+                                    <option value="8">Aug</option>
+                                    <option value="9">Sep</option>
+                                    <option value="10">Oct</option>
+                                    <option value="11">Nov</option>
+                                    <option value="12">Dec</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" id="yearCombo">
+                                    <option value="none">Select Year</option>
+                                    <option value="2023" selected>2023</option>
+                                </select>
+                            </div>
+
+                            <div class="search-btn-wrapper">
+                                <button type="button" class="btn btn-default btn-grad go-back"
+                                    onclick="dumpDataReport(event)">Search</button>
+                                <button type="button" class="btn btn-default btn-grad go-back"
+                                    onclick="downloadReport()" id="excel">Excel</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div class="report-wrapper admin-chart-wrapper">
+
+                        <div class="table-responsive">
+                            <div class="potential-dump-report none">
+                                <h3>Potetnial Dump Data</h3>
+                                <table class="table table-bordered" id="potentialTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ZBM</th>
+                                            <th>RBM</th>
+                                            <th>Kam Name</th>
+                                            <th>Designation</th>
+                                            <th>Centre Name</th>
+                                            <th>Doctor Name</th>
+                                            <th>Customer Id</th>
+                                            <th>IUI Cycle</th>
+                                            <th>IVF Cycle</th>
+                                            <th>Fresh PickUps</th>
+                                            <th>Selft Cycle</th>
+                                            <th>Donor Cycles</th>
+                                            <th>Agonist Cycles</th>
+                                            <th>frozen Transfers</th>
+                                            <th>Antagonist Cycles</th>
+                                            <th>is Approved</th>
+                                            <th>Approved By</th>
+                                            <th>Approved On</th>
+                                            <th>Rejected By</th>
+                                            <th>rejected On</th>
+                                            <th>Reject Comments</th>
+                                            <th>Potential Entered For</th>
+                                            <th>Visi Type</th>
+                                            <th>RBM Staus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="potential-reports">
+                                        <tr>
+                                            <td>${item.ZBM}</td>
+                                            <td>${item.RBM}</td>
+                                            <td>${item.KamName}</td>
+                                            <td>${item.Designation}</td>
+                                            <td>${item.centreName}</td>
+                                            <td>${item.DoctorName}</td>
+                                            <td>${item.customerId}</td>
+                                            <td>${item.IUICycle}</td>
+                                            <td>${item.IVFCycle}</td>
+                                            <td>${item.FreshPickUps}</td>
+                                            <td>${item.SelftCycle}</td>
+                                            <td>${item.DonorCycles}</td>
+                                            <td>${item.AgonistCycles}</td>
+                                            <td>${item.frozenTransfers}</td>
+                                            <td>${item.Antagonistcycles}</td>
+                                            <td>${item.isApproved}</td>
+                                            <td>${item.ApprovedBy}</td>
+                                            <td>${item.ApprovedOn}</td>
+                                            <td>${item.RejectedBy}</td>
+                                            <td>${item.rejectedOn}</td>
+                                            <td>${item.rejectComments}</td>
+                                            <td>${item.PotentialEnteredFor}</td>
+                                            <td>${item.visiType}</td>
+                                            <td>${item.RBMStaus}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <div class="market-insight-dump-report none">
+                                <h3>Market Insight Dump Data</h3>
+                                <table class="table table-bordered" id="marketInsightTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ZBM</th>
+                                            <th>RBM</th>
+                                            <th>KamName</th>
+                                            <th>Designation</th>
+                                            <th>centreName</th>
+                                            <th>DoctorName</th>
+                                            <th>customerId</th>
+                                            <th>Practice Obstetrics</th>
+                                            <th>Fresh Stimulated Cycles</th>
+                                            <th>RFSH %</th>
+                                            <th>HMG %</th>
+                                            <th>Progesterone %</th>
+                                            <th>Dydrogesterone %</th>
+                                            <th>Combination %</th>
+                                            <th>RHCG %</th>
+                                            <th>UHCG %</th>
+                                            <th>Agonist-Leuprolide %</th>
+                                            <th>Agonist-Triptorelin %</th>
+                                            <th>Dual Trigger (R-HCG + Triptorelin) %</th>
+                                            <th>Dual Trigger (R-HCG + Leuprolide) %</th>
+                                            <th>statusText</th>
+                                            <th>ApprovedBy</th>
+                                            <th>ApprovedOn</th>
+                                            <th>RejectedBy</th>
+                                            <th>rejectedOn</th>
+                                            <th>rejectComments</th>
+                                            <th>addedFor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="market-insight-reports">
+                                        <tr>
+                                            <td>${item.ZBM}</td>
+                                            <td>${item.RBM}</td>
+                                            <td>${item.KamName}</td>
+                                            <td>${item.Designation}</td>
+                                            <td>${item.centreName}</td>
+                                            <td>${item.DoctorName}</td>
+                                            <td>${item.customerId}</td>
+                                            <td>${item['Practice Obstetrics']}</td>
+                                            <td>${item['Fresh Stimulated Cycles']}</td>
+                                            <td>${item['RFSH %']}</td>
+                                            <td>${item['HMG %']}</td>
+                                            <td>${item['Progesterone %']}</td>
+                                            <td>${item['Dydrogesterone %']}</td>
+                                            <td>${item['Combination %']}</td>
+                                            <td>${item['RHCG %']}</td>
+                                            <td>${item['UHCG %']}</td>
+                                            <td>${item['Agonist-Leuprolide %']}</td>
+                                            <td>${item['Agonist-Triptorelin %']}</td>
+                                            <td>${item['Dual Trigger (R-HCG + Triptorelin) %']}</td>
+                                            <td>${item['Dual Trigger (R-HCG + Leuprolide) %']}</td>
+                                            <td>${itemstatusText}</td>
+                                            <td>${item.ApprovedBy}</td>
+                                            <td>${item.ApprovedOn}</td>
+                                            <td>${item.RejectedBy}</td>
+                                            <td>${item.rejectedOn}</td>
+                                            <td>${item.rejectComments}</td>
+                                            <td>${item.addedFor}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <div class="business-dump-report none">
+                                <h3>Business Dump Data</h3>
+                                <table class="table table-bordered" id="businessTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ZBM</th>
+                                            <th>RBM</th>
+                                            <th>KamName</th>
+                                            <th>Designation</th>
+                                            <th>CENTRENAME</th>
+                                            <th>DoctorName</th>
+                                            <th>CITY</th>
+                                            <th>hositalId,</th>
+                                            <th>[FOLIGRAF 900 IU/1.5 ML PEN]</th>
+                                            <th>[FOLIGRAF 1200 IU/2 ML PEN] </th>
+                                            <th>[FOLIGRAF 450 IU/0.75 ML PEN]</th>
+                                            <th>FOLIGRAF PEN</th>
+                                            <th>FOLIGRAF 1200 IU LYO MULTIDOSE</th>
+                                            <th>Foligraf 150 iu</th>
+                                            <th>Foligraf 150 iu PFS</th>
+                                            <th>Foligraf 225 PFS</th>
+                                            <th>Foligraf 300 PFS</th>
+                                            <th>Foligraf 75 iu</th>
+                                            <th>Foligraf 75 iu PFS</th>
+                                            <th>FOLIGRAF (LYO/PFS)</th>
+                                            <th>HP Humog 150 iu</th>
+                                            <th>HP Humog 75 iu</th>
+                                            <th>HuMoG  225 IU BP (Freeze Dried)</th>
+                                            <th>Humog 150 iu</th>
+                                            <th>Humog 75 iu</th>
+                                            <th>HUMOG LYO</th>
+                                            <th>Humog HD 1200 IU Liquid</th>
+                                            <th>Humog HD 600 IU Liquid</th>
+                                            <th>HUMOG LIQ (MD/PFS)</th>
+                                            <th>ASPORELIX</th>
+                                            <th>r – Hucog 6500 i.u. /0.5 ml</th>
+                                            <th>Foliculin 150 iu</th>
+                                            <th>Foliculin 75 iu</th>
+                                            <th>HP Foliculin 150 iu</th>
+                                            <th>HP Foliculin 75 iu</th>
+                                            <th>FOLICULIN,</th>
+                                            <th>Agotrig 0.1mg/ml in PFS TFD</th>
+                                            <th>Dydrogesterone 10mg</th>
+                                            <th>SPRIMEO</th>
+                                            <th>isApproved</th>
+                                            <th>accountName</th>
+                                            <th>statusText</th>
+                                            <th>sortOrder</th>
+                                            <th>ApprovedBy</th>
+                                            <th>ApprovedOn</th>
+                                            <th>RejectedBy</th>
+                                            <th>rejectedOn</th>
+                                            <th>ActualEnteredFor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="business-reports">
+                                        <tr>
+                                            <td>${['ZBM']}</td>
+                                            <td>${['RBM']}</td>
+                                            <td>${['KamName']}</td>
+                                            <td>${['Designation']}</td>
+                                            <td>${['CENTRENAME']}</td>
+                                            <td>${['DoctorName']}</td>
+                                            <td>${['CITY']}</td>
+                                            <td>${['hospitalId']}</td>
+                                            <td>${['[FOLIGRAF 900 IU/1.5 ML PEN]']}</td>
+                                            <td>${['[FOLIGRAF 1200 IU/2 ML PEN] ']}</td>
+                                            <td>${['[FOLIGRAF 450 IU/0.75 ML PEN]']}</td>
+                                            <td>${['FOLIGRAF PEN']}</td>
+                                            <td>${['FOLIGRAF 1200 IU LYO MULTIDOSE']}</td>
+                                            <td>${['Foligraf 150 iu']}</td>
+                                            <td>${['Foligraf 150 iu PFS']}</td>
+                                            <td>${['Foligraf 225 PFS']}</td>
+                                            <td>${['Foligraf 300 PFS']}</td>
+                                            <td>${['Foligraf 75 iu']}</td>
+                                            <td>${['Foligraf 75 iu PFS']}</td>
+                                            <td>${['FOLIGRAF (LYO/PFS)']}</td>
+                                            <td>${['HP Humog 150 iu']}</td>
+                                            <td>${['HP Humog 75 iu']}</td>
+                                            <td>${['HuMoG  225 IU BP (Freeze Dried)']}</td>
+                                            <td>${['Humog 150 iu']}</td>
+                                            <td>${['Humog 75 iu']}</td>
+                                            <td>${['HUMOG LYO']}</td>
+                                            <td>${['Humog HD 1200 IU Liquid']}</td>
+                                            <td>${['Humog HD 600 IU Liquid']}</td>
+                                            <td>${['HUMOG LIQ (MD/PFS)']}</td>
+                                            <td>${['ASPORELIX']}</td>
+                                            <td>${['r – Hucog 6500 i.u. /0.5 ml']}</td>
+                                            <td>${['Foliculin 150 iu']}</td>
+                                            <td>${['Foliculin 75 iu']}</td>
+                                            <td>${['HP Foliculin 150 iu']}</td>
+                                            <td>${['HP Foliculin 75 iu']}</td>
+                                            <td>${['FOLICULIN']}</td>
+                                            <td>${['Agotrig 0.1mg/ml in PFS TFD']}</td>
+                                            <td>${['Dydrogesterone 10mg']}</td>
+                                            <td>${['SPRIMEO']}</td>
+                                            <td>${['isApproved']}</td>
+                                            <td>${['accountName']}</td>
+                                            <td>${['statusText']}</td>
+                                            <td>${['sortOrder']}</td>
+                                            <td>${['ApprovedBy']}</td>
+                                            <td>${['ApprovedOn']}</td>
+                                            <td>${['RejectedBy']}</td>
+                                            <td>${['rejectedOn']}</td>
+                                            <td>${['ActualEnteredFor']}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <div class="competition-dump-report none">
+                                <h3>Competiton Dump Data</h3>
+                                <table class="table table-bordered" id="competitionTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ZBM</th>
+                                            <th>RBM</th>
+                                            <th>KamName</th>
+                                            <th>Designation</th>
+                                            <th>centreName</th>
+                                            <th>DoctorName</th>
+                                            <th>centerId</th>
+                                            <th>FOLIGRAF</th>
+                                            <th>HUMOG</th>
+                                            <th>ASPORELIX</th>
+                                            <th>R-HUCOG</th>
+                                            <th>FOLICULIN</th>
+                                            <th>AGOTRIG</th>
+                                            <th>MIDYDROGEN</th>
+                                            <th>statusText</th>
+                                            <th>ApprovedBy</th>
+                                            <th>ApprovedOn</th>
+                                            <th>RejectedBy</th>
+                                            <th>rejectedOn</th>
+                                            <th>competitionAddedFor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="competiton-reports">
+                                        <tr>
+                                            <td>ZBM</td>
+                                            <td>RBM</td>
+                                            <td>KamName</td>
+                                            <td>Designation</td>
+                                            <td>centreName</td>
+                                            <td>DoctorName</td>
+                                            <td>centerId</td>
+                                            <td>FOLIGRAF</td>
+                                            <td>HUMOG</td>
+                                            <td>ASPORELIX</td>
+                                            <td>R-HUCOG</td>
+                                            <td>FOLICULIN</td>
+                                            <td>AGOTRIG</td>
+                                            <td>MIDYDROGEN</td>
+                                            <td>statusText</td>
+                                            <td>ApprovedBy</td>
+                                            <td>ApprovedOn</td>
+                                            <td>RejectedBy</td>
+                                            <td>rejectedOn</td>
+                                            <td>competitionAddedFor</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loader">
+        <img src="../../img/loader.gif" alt="ivf loader" class="img-responsive" />
+    </div>
+
+    <div class="menu-overlay"></div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/moment.min.js"></script>
+    <script src="../../js/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="../../js/googlechart.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-venn.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.9.0/themes/pastel.min.js"></script>
+    <script src="../../js/axios.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.15/plugins/export/libs/FileSaver.js/FileSaver.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.3/xlsx.full.min.js"></script>
+
+    <script src="../../js/admin.js"></script>
+    <script src="../../js/dumpReport.js"></script>
+    <script>
+        $(function () {
+            getReports();
+        });
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
