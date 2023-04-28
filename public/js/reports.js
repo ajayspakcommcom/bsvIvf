@@ -387,7 +387,7 @@ function filterData(e) {
     axios
         .post('/team-progress-report', param).then((response) => {
 
-            //console.log(response);
+            console.log(response);
 
             let showHtml = [], zbmRbmList = response.data[0], potentialEnteredList = response.data[1], marketInsightEnteredList = response.data[3], businessEnteredList = response.data[2], competitionEnteredList = response.data[4];
 
@@ -402,8 +402,8 @@ function filterData(e) {
                         <td>${item.ZBM}</td>
                         <td>${item.RBM}</td>
                         <td>${item.FIRSTname}</td>
-                        <td>${getTotalHospital(item.empid, potentialEnteredList)}</td>
-
+                        <!--<td>${getTotalHospital(item.empid, potentialEnteredList)}</td>-->
+                        <td>${item.TotalIVFCount}</td>
                         <td>${getTotalPotentialEntered(item.empid, potentialEnteredList, 'potential')}</td>                        
                         <td> <a href="#myModal" class="modal-btn" data-toggle="modal" id="${item.empid}" type="potential"> ${getTotalPotentialNotEntered(item.empid, potentialEnteredList, 'potential')}</a></td>
 
@@ -440,6 +440,8 @@ $('#progress-progress-report').on('click', '.modal-btn', function () {
     // console.log(marketInsightEnteredData);
     // console.log(businessEnteredData);
     // console.log(competitionEntered);
+
+    console.log(empId);
 
     if ($(this).attr('type') === 'potential') {
         pendingList = potentialEnteredData.filter(e => (e.empID == empId && e.PotentialedEntered.toLowerCase() === 'no'));
