@@ -202,7 +202,7 @@ function competitionReport(param) {
                         <td>${item.FOLIGRAF}</td>
                         <td>${item.HUMOG}</td>
                         <td>${item.ASPORELIX}</td>
-                        <td>${item['R - HUCOG']}</td>
+                        <td>${item['R-HUCOG']}</td>
                         <td>${item.FOLICULIN}</td>
                         <td>${item.AGOTRIG}</td>
                         <td>${item.MIDYDROGEN}</td>
