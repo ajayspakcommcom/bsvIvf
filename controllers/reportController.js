@@ -747,7 +747,8 @@ getTeamProgressReport = (objParam) => {
                     .input("empId", sql.Int, parseInt(objParam.empId))
                     .input("month", sql.Int, parseInt(objParam.month))
                     .input("Year", sql.Int, parseInt(objParam.Year))
-                    .execute("USP_VALIDATE_TEAM_PROGRESS_REPORT")
+                    //.execute("USP_VALIDATE_TEAM_PROGRESS_REPORT")
+                    .execute("USP_VALIDATE_TEAM_PROGRESS_REPORTV1")
                     .then(function (resp) {
                         resolve(resp.recordsets);
                         dbConn.close();

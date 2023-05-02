@@ -403,7 +403,7 @@ function filterData(e) {
                         <td>${item.RBM}</td>
                         <td>${item.FIRSTname}</td>
                         <!--<td>${getTotalHospital(item.empid, potentialEnteredList)}</td>-->
-                        <td>${item.TotalIVFCount}</td>
+                        <td>${item.TotalHospitalcount}</td>
                         <td>${getTotalPotentialEntered(item.empid, potentialEnteredList, 'potential')}</td>                        
                         <td> <a href="#myModal" class="modal-btn" data-toggle="modal" id="${item.empid}" type="potential"> ${getTotalPotentialNotEntered(item.empid, potentialEnteredList, 'potential')}</a></td>
 

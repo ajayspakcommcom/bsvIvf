@@ -15,6 +15,8 @@ function getTeamProgressReport() {
         .post('/team-progress-report', param).then((response) => {
 
             let showHtml = [], zbmRbmList = response.data[0], potentialEnteredList = response.data[1], marketInsightEnteredList = response.data[3], businessEnteredList = response.data[2], competitionEnteredList = response.data[4];
+            console.log(response);
+
 
             potentialEnteredData = potentialEnteredList;
             marketInsightEnteredData = marketInsightEnteredList;
@@ -25,7 +27,7 @@ function getTeamProgressReport() {
                 showHtml.push(`
                     <tr>
                         <td>${item.FIRSTname}</td>
-                        <td>${getTotalHospital(item.empid, potentialEnteredList)}</td>
+                        <td>${item.TotalHospitalcount}</td>
 
                         <td>${getTotalPotentialEntered(item.empid, potentialEnteredList, 'potential')}</td>                        
                         <td> <a href="#myModal" class="modal-btn" data-toggle="modal" id="${item.empid}" type="potential"> ${getTotalPotentialNotEntered(item.empid, potentialEnteredList, 'potential')}</a></td>
