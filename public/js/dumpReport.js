@@ -35,6 +35,7 @@ function potetnialReport(param) {
                         <td>${item.KamName}</td>
                         <td>${item.Designation}</td>
                         <td>${item.centreName}</td>
+                        <td>${item.CustomerCity}</td>
                         <td>${item.DoctorName}</td>
                         <td>${item.customerId}</td>
                         <td>${item.IUICycle}</td>
