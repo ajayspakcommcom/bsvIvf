@@ -20,22 +20,22 @@ exports.postApi = (req, res, next) => {
         case 'adminLogin':
             userLogin(req.body).then((result) => {
                 let response, success, msg, userDetails, session, statusCode
-                
+
                 if (result.recordset.length > 0) {
                     session = req.session;
-                   // console.log(result.recordset);
+                    // console.log(result.recordset);
                     let rec = result.recordset[0];
                     // if (_allowedDesignaiton.includes(rec.Designation.toUpperCase())) {
-                        success = true;
-                        msg = 'Login successful'
-                        userDetails = {
-                            empId: rec.EmpID,
-                            name: rec.firstName,
-                            post: rec.Designation,
-                            lastLogin: rec.lastLoginDate,
-                            targetLeft: 4
-                        }
-                        session.userDetails = userDetails;
+                    success = true;
+                    msg = 'Login successful'
+                    userDetails = {
+                        empId: rec.EmpID,
+                        name: rec.firstName,
+                        post: rec.Designation,
+                        lastLogin: rec.lastLoginDate,
+                        targetLeft: 4
+                    }
+                    session.userDetails = userDetails;
                     // }
                     // else {
                     //     success = false;
@@ -49,17 +49,17 @@ exports.postApi = (req, res, next) => {
                     success, msg, userDetails
                 };
                 if (success) {
-                   // console.log('send 200')
+                    // console.log('send 200')
                     statusCode = _STATUSCODE;
                 } else {
                     statusCode = 201;
                 }
-                 res.status(statusCode).json(response);
+                res.status(statusCode).json(response);
             })
             break;
         case 'adminData':
 
-            dashboardData(req.body).then((result) =>{
+            dashboardData(req.body).then((result) => {
                 res.status(_STATUSCODE).json(result);
             });
             break;
@@ -69,7 +69,7 @@ exports.postApi = (req, res, next) => {
 
 
 userLogin = (objParam) => {
-     //   console.log('I am Here', objParam);
+    console.log('I am Here', objParam);
     return new Promise((resolve) => {
         var dbConn = new sql.ConnectionPool(dbConfig.dataBaseConfig);
         dbConn
@@ -79,9 +79,11 @@ userLogin = (objParam) => {
                 request
                     .input("email", sql.NVarChar, objParam.username)
                     .input("password", sql.NVarChar, objParam.password)
+                    .input("Ip", sql.NVarChar, objParam.ip)
+                    .input("IpLocation", sql.NVarChar, objParam.ipLocation)
                     .execute("USP_VALIDATE_USER")
                     .then(function (resp) {
-                       // console.log(resp)
+                        // console.log(resp)
                         resolve(resp);
                         dbConn.close();
                     })

@@ -2,59 +2,65 @@
 
 function letMeLogin() {
 
+    fetch('https://api.ipify.org/?format=json').then(res => res.json()).then(data => {
+        fetch(`https://ipapi.co/${data.ip}/json`).then(resp => resp.json()).then(respData => {
+            console.log(respData);
 
-    //console.log(validateAllInput());
 
-    $('.login-btn-wrapper img').addClass('show');
 
-    if (validateAllInput()) {
-        let param = {
-            method: 'adminLogin',
-            username: $('#txtUsername').val(),
-            password: $('#txtPassword').val()
-        };
-        console.log(param)
-        axios
-            .post("/admin/api", param).then((response) => {
-                console.log(response);
-                switch (checkIfValidStatus(response.status)) {
-                    case 1:
-                        localStorage.setItem("BSV_IVF_Admin_Data", JSON.stringify(response.data.userDetails));
+            $('.login-btn-wrapper img').addClass('show');
 
-                        let userDesignation = JSON.parse(window.localStorage.getItem('BSV_IVF_Admin_Data')).post;
+            if (validateAllInput()) {
+                let param = {
+                    method: 'adminLogin',
+                    username: $('#txtUsername').val(),
+                    password: $('#txtPassword').val(),
+                    ip: respData.ip,
+                    ipLocation: `${respData.city}, ${respData.region}, ${respData.country_name}`
+                };
+                console.log(param)
+                axios
+                    .post("/admin/api", param).then((response) => {
+                        console.log(response);
+                        switch (checkIfValidStatus(response.status)) {
+                            case 1:
+                                localStorage.setItem("BSV_IVF_Admin_Data", JSON.stringify(response.data.userDetails));
 
-                        console.log(userDesignation);
+                                let userDesignation = JSON.parse(window.localStorage.getItem('BSV_IVF_Admin_Data')).post;
 
-                        if (userDesignation.toLowerCase() == 'kam') {
-                            (document.location.href = _URL._POSTLOGINURL);
-                        } else if (userDesignation.toLowerCase() == 'admin') {
-                            console.log('Admin');
-                            redirect('/report');
+                                console.log(userDesignation);
+
+                                if (userDesignation.toLowerCase() == 'kam') {
+                                    (document.location.href = _URL._POSTLOGINURL);
+                                } else if (userDesignation.toLowerCase() == 'admin') {
+                                    console.log('Admin');
+                                    redirect('/report');
+                                }
+                                else {
+                                    _URL._POSTLOGINURL = '/employees/kam-list';
+                                    (document.location.href = _URL._POSTLOGINURL);
+                                }
+
+                                break;
+                            case 2:
+                                $('#lblmsg').text(response.data.msg)
+                                break;
+                            case 3:
+                                $('#lblmsg').text(response.data.msg)
+                                break;
+
+                            default:
+                                break;
                         }
-                        else {
-                            _URL._POSTLOGINURL = '/employees/kam-list';
-                            (document.location.href = _URL._POSTLOGINURL);
-                        }
 
-                        break;
-                    case 2:
-                        $('#lblmsg').text(response.data.msg)
-                        break;
-                    case 3:
-                        $('#lblmsg').text(response.data.msg)
-                        break;
+                        $('.login-btn-wrapper img').removeClass('show');
 
-                    default:
-                        break;
-                }
-
-                $('.login-btn-wrapper img').removeClass('show');
-
-            }).catch((err) => {
-                console.log(err);
-            });
-    }
-
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+            }
+        });
+    });
 
 }
 
