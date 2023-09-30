@@ -83,6 +83,7 @@ getPotentialReport = (objParam) => {
                         dbConn.close();
                     })
                     .catch(function (err) {
+                        console.log(err);
                         dbConn.close();
                     });
             })
