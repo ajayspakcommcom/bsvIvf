@@ -83,17 +83,17 @@ userLogin = (objParam) => {
                     .input("IpLocation", sql.NVarChar, objParam.ipLocation)
                     .execute("USP_VALIDATE_USER")
                     .then(function (resp) {
-                        // console.log(resp)
+                        console.log(resp)
                         resolve(resp);
                         dbConn.close();
                     })
                     .catch(function (err) {
-                        //console.log(err);
+                        console.log(err);
                         dbConn.close();
                     });
             })
             .catch(function (err) {
-                //console.log(err);
+                console.log(err);
             });
     });
 };
