@@ -32,4 +32,5 @@ exports.dataBaseConfig = {
     encrypt: true,
     trustServerCertificate: true,
   },
+  requestTimeout: 45000
 };
