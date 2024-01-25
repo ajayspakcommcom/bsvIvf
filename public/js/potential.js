@@ -124,8 +124,7 @@ function validateMe() {
             visitID: parseInt($("#comboAccountCategory").val())
         }
 
-
-
+    console.log('Patential Added', param);
 
     axios
         .post('/center-potentials-add/', param).then((response) => {
